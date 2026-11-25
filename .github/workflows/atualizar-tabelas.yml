@@ -1,0 +1,54 @@
+name: Atualizar tabelas oficiais
+
+# Toda segunda-feira: refaz a extração a partir do repositório público da Receita Federal
+# e abre um pull request se a base de CST/cClassTrib mudou.
+on:
+  schedule:
+    - cron: "17 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Baixar só as migrações SQL do repositório oficial
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/ReceitaFederal/calculadora-rtc-regime-regular "$RUNNER_TEMP/rtc"
+          git -C "$RUNNER_TEMP/rtc" sparse-checkout set flyway
+      - name: Gerar tabelas e sincronizar a página
+        run: |
+          python ferramentas/exportar_tabelas.py "$RUNNER_TEMP/rtc"
+          python ferramentas/sincronizar_web.py
+      - name: Testar com as tabelas novas
+        run: |
+          pip install -e ".[dev]"
+          if ! pytest -q; then echo "TESTES_FALHARAM=1" >> "$GITHUB_ENV"; fi
+      - name: Abrir pull request se houve mudança
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- src/auditor_ibs_cbs/dados docs/tabelas-rtc.json; then
+            echo "Tabelas já estão atualizadas."
+            exit 0
+          fi
+          VERSAO=$(python ferramentas/versao_tabelas.py)
+          RAMO="tabelas/$(date +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$RAMO"
+          git add src/auditor_ibs_cbs/dados docs/tabelas-rtc.json
+          git commit -m "data: tabelas oficiais base $VERSAO"
+          git push origin "$RAMO"
+          CORPO="Extração automática do repositório público da Receita Federal (calculadora-rtc-regime-regular)."
+          if [ "${TESTES_FALHARAM:-0}" = "1" ]; then
+            CORPO="$CORPO Atenção: os testes falharam com a base nova; algum exemplo pode usar um código que mudou. Revise antes de aceitar."
+          fi
+          gh pr create --title "Tabelas oficiais: base $VERSAO" --body "$CORPO"

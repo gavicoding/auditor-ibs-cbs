@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "auditor-ibs-cbs"
+version = "1.0.0"
+description = "Confere o IBS/CBS (reforma tributária) de XMLs de NF-e e NFC-e contra as tabelas oficiais de CST e cClassTrib."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Gabriel Souza", email = "gavicoding@gmail.com" }]
+keywords = ["reforma tributária", "IBS", "CBS", "NF-e", "NFC-e", "cClassTrib", "nota fiscal", "XML"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: Portuguese (Brazilian)",
+  "Topic :: Office/Business :: Financial :: Accounting",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+auditor-ibs-cbs = "auditor_ibs_cbs.cli:main"
+
+[project.urls]
+Homepage = "https://gavicoding.github.io/auditor-ibs-cbs/"
+Source = "https://github.com/gavicoding/auditor-ibs-cbs"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+auditor_ibs_cbs = ["dados/*.json"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/auditor_ibs_cbs/relatorio.py" = ["E501"]  # CSS embutido do relatório HTML

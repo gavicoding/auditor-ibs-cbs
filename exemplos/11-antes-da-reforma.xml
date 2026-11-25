@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00"><NFe><infNFe Id="NFe35251211222333000181550010000010111000010110" versao="4.00"><ide><cUF>35</cUF><mod>55</mod><serie>1</serie><nNF>1011</nNF><dhEmi>2025-12-15T09:00:00-03:00</dhEmi></ide><emit><CNPJ>11222333000181</CNPJ><xNome>EMPRESA FICTICIA EXEMPLO LTDA</xNome><CRT>3</CRT></emit><det nItem="1"><prod><cProd>0001</cProd><xProd>CANETA AZUL</xProd></prod><imposto></imposto></det><total></total></infNFe></NFe></nfeProc>

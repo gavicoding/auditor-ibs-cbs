@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev]"
+      - run: ruff check . && ruff format --check .
+      - run: pytest -q
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Página usa as mesmas tabelas e exemplos do pacote
+        run: |
+          python ferramentas/sincronizar_web.py
+          git diff --exit-code -- docs/
+      - name: Mesma bateria de testes na versão web
+        run: node --test tests/web/paridade.test.mjs
+      - name: Python x web em 1000 notas aleatórias
+        run: |
+          python ferramentas/fuzz_paridade.py "$RUNNER_TEMP/fuzz" 1000 "${{ github.run_id }}"
+          node tests/web/fuzz.mjs "$RUNNER_TEMP/fuzz"
+      - name: Exemplos continuam iguais ao gerador
+        run: |
+          python ferramentas/gerar_exemplos.py
+          git diff --exit-code -- exemplos/*.xml

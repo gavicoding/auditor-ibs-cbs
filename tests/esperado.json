@@ -1,0 +1,129 @@
+{
+ "01-correta.xml": {
+  "achados": []
+ },
+ "02-sem-grupo-regime-normal.xml": {
+  "achados": [
+   [
+    "AIC-010",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "03-sem-grupo-simples-nacional.xml": {
+  "achados": [
+   [
+    "AIC-010",
+    "info",
+    "1"
+   ]
+  ]
+ },
+ "04-cclasstrib-de-outro-cst.xml": {
+  "achados": [
+   [
+    "AIC-015",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "05-cclasstrib-inexistente.xml": {
+  "achados": [
+   [
+    "AIC-013",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "06-cclasstrib-nao-permitido-nfce.xml": {
+  "achados": [
+   [
+    "AIC-016",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "07-valores-errados.xml": {
+  "achados": [
+   [
+    "AIC-030",
+    "atencao",
+    "1"
+   ],
+   [
+    "AIC-031",
+    "erro",
+    "1"
+   ],
+   [
+    "AIC-041",
+    "erro",
+    null
+   ]
+  ]
+ },
+ "08-reducao-diferente-da-oficial.xml": {
+  "achados": [
+   [
+    "AIC-023",
+    "atencao",
+    "1"
+   ],
+   [
+    "AIC-023",
+    "atencao",
+    "1"
+   ],
+   [
+    "AIC-023",
+    "atencao",
+    "1"
+   ]
+  ]
+ },
+ "09-grupo-gibscbs-ausente.xml": {
+  "achados": [
+   [
+    "AIC-020",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "10-reducao-correta-cesta-basica.xml": {
+  "achados": []
+ },
+ "11-antes-da-reforma.xml": {
+  "achados": [
+   [
+    "AIC-004",
+    "info",
+    null
+   ]
+  ]
+ },
+ "12-cclasstrib-encerrado.xml": {
+  "achados": [
+   [
+    "AIC-014",
+    "erro",
+    "1"
+   ],
+   [
+    "AIC-016",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "13-xml-com-doctype.xml": {
+  "ilegivel": true
+ },
+ "14-nao-e-nfe.xml": {
+  "ilegivel": true
+ }
+}

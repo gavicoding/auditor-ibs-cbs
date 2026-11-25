@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auditor IBS/CBS · NF-e e NFC-e</title>
+  <meta name="description" content="Confira o IBS e a CBS (reforma tributária) dos XMLs de NF-e e NFC-e: CST, cClassTrib, valores e totais, contra as tabelas oficiais. Grátis, código aberto e sem enviar nada: tudo roda no seu navegador." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'" />
+  <meta name="referrer" content="no-referrer" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a7f5a'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #f6f7f9; --surface: #ffffff; --surface-2: #f0f2f5; --text: #1b1f24; --muted: #5b6470;
+      --border: #d9dee5; --accent: #1a7f5a; --accent-ink: #ffffff; --accent-soft: #e3f3ec;
+      --erro: #c4301f; --erro-soft: #fdecea; --atencao: #9a6100; --atencao-soft: #fdf3e1; --info: #1f5fbf; --info-soft: #e8f0fc;
+      --radius: 12px; --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 24px rgba(0,0,0,.06);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0f1216; --surface: #161b21; --surface-2: #1d232b; --text: #e7ebf0; --muted: #9aa4b1;
+        --border: #2b333d; --accent: #3fbf8f; --accent-ink: #062016; --accent-soft: #12352a;
+        --erro: #ff8a7a; --erro-soft: #3a1d1a; --atencao: #f0b44c; --atencao-soft: #3a2c12; --info: #82b1ff; --info-soft: #17253d;
+        --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 24px rgba(0,0,0,.35);
+      }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    a { color: var(--accent); }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+    header.top { padding: 40px 0 8px; }
+    .tag { display: inline-block; font: 600 12px/1 var(--mono); letter-spacing: .04em; color: var(--accent); background: var(--accent-soft); padding: 6px 10px; border-radius: 99px; }
+    h1 { font-size: clamp(28px, 4.4vw, 42px); line-height: 1.15; margin: 14px 0 10px; letter-spacing: -.01em; }
+    .lead { font-size: 18px; color: var(--muted); max-width: 760px; margin: 0; }
+    .privacy { display: flex; gap: 10px; align-items: flex-start; margin: 18px 0 0; padding: 12px 14px; border: 1px solid var(--border); background: var(--surface); border-radius: var(--radius); max-width: 760px; font-size: 15px; }
+    .privacy b { color: var(--accent); }
+    section { margin: 28px 0; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+    .drop { border: 2px dashed var(--border); border-radius: var(--radius); padding: 36px 16px; text-align: center; transition: border-color .15s, background .15s; cursor: pointer; }
+    .drop.over, .drop:focus-visible { border-color: var(--accent); background: var(--accent-soft); outline: none; }
+    .drop strong { display: block; font-size: 19px; margin-bottom: 4px; }
+    .drop span { color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; justify-content: center; }
+    button, .btn { font: 600 15px/1 inherit; font-family: inherit; border-radius: 10px; padding: 11px 16px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; }
+    button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+    button:hover { filter: brightness(1.05); }
+    button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+    .stat b { display: block; font-size: 28px; line-height: 1.1; }
+    .stat span { color: var(--muted); font-size: 14px; }
+    .stat.erro b { color: var(--erro); } .stat.atencao b { color: var(--atencao); } .stat.ok b { color: var(--accent); }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 10px; align-items: center; }
+    .filters button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .filters .spacer { flex: 1; }
+    .nota { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); margin-bottom: 10px; overflow: hidden; }
+    .nota > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .nota > summary::-webkit-details-marker { display: none; }
+    .pill { font: 700 12px/1 var(--mono); padding: 5px 8px; border-radius: 6px; white-space: nowrap; }
+    .pill.erro { color: var(--erro); background: var(--erro-soft); } .pill.atencao { color: var(--atencao); background: var(--atencao-soft); }
+    .pill.info { color: var(--info); background: var(--info-soft); } .pill.ok { color: var(--accent); background: var(--accent-soft); }
+    .nota .ident { font-weight: 600; } .nota .orig { color: var(--muted); font-size: 13px; font-family: var(--mono); overflow-wrap: anywhere; }
+    .achado { border-top: 1px solid var(--border); padding: 12px 14px; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; }
+    .achado > .pill { align-self: start; justify-self: start; }
+    .achado h3 { margin: 0; font-size: 15px; } .achado p { margin: 2px 0 0; color: var(--muted); font-size: 14.5px; }
+    .achado p.fix { color: var(--text); } .achado code { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+    .empty { color: var(--muted); text-align: center; padding: 18px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    h2 { font-size: 22px; margin: 0 0 10px; }
+    ul.rules { margin: 0; padding-left: 18px; } ul.rules li { margin: 4px 0; }
+    .lookup { display: flex; gap: 8px; } .lookup input { flex: 1; min-width: 0; font: 16px var(--mono); padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); }
+    #consulta-saida { margin-top: 12px; font-size: 14.5px; } #consulta-saida dt { color: var(--muted); font-size: 13px; margin-top: 6px; }
+    #consulta-saida dd { margin: 0; } #consulta-saida ul { margin: 4px 0 0; padding-left: 18px; max-height: 220px; overflow: auto; }
+    footer { color: var(--muted); font-size: 14px; padding: 24px 0 48px; border-top: 1px solid var(--border); margin-top: 36px; }
+    .hidden { display: none !important; }
+    .progress { height: 6px; background: var(--surface-2); border-radius: 99px; overflow: hidden; margin-top: 12px; }
+    .progress div { height: 100%; width: 0; background: var(--accent); transition: width .1s; }
+    @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } .grid2 { grid-template-columns: 1fr; } .achado { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <span class="tag">REFORMA TRIBUTÁRIA · IBS E CBS · NF-e E NFC-e</span>
+      <h1>Suas notas fiscais estão certas para o IBS e a CBS?</h1>
+      <p class="lead">Arraste os XMLs das suas NF-e e NFC-e (ou um arquivo .zip) e veja, item por item, o que está errado no grupo do IBS e da CBS e como corrigir. A conferência usa as tabelas oficiais de CST e cClassTrib.</p>
+      <p class="privacy">🔒 <span><b>Nada sai do seu computador.</b> Os arquivos são lidos aqui mesmo, no seu navegador. Não há envio, cadastro nem coleta de dados.</span></p>
+    </header>
+
+    <section class="card" aria-label="Enviar arquivos">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-describedby="drop-hint">
+        <strong>Arraste os XMLs ou um .zip aqui</strong>
+        <span id="drop-hint">ou clique para escolher os arquivos (pode selecionar vários)</span>
+      </div>
+      <input type="file" id="arquivos" class="hidden" multiple accept=".xml,.zip,application/zip,text/xml" />
+      <div class="actions">
+        <button type="button" class="primary" id="escolher">Escolher arquivos</button>
+        <button type="button" id="exemplos">Testar com notas de exemplo</button>
+      </div>
+      <div class="progress hidden" id="progresso" aria-hidden="true"><div></div></div>
+    </section>
+
+    <section id="resultado" class="hidden" aria-live="polite">
+      <div class="stats">
+        <div class="stat"><b id="s-notas">0</b><span>notas conferidas</span></div>
+        <div class="stat ok"><b id="s-ok">0</b><span>sem problemas</span></div>
+        <div class="stat atencao"><b id="s-atencao">0</b><span>pedem atenção</span></div>
+        <div class="stat erro"><b id="s-erro">0</b><span>com erro</span></div>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrar notas">
+        <button type="button" data-filtro="problemas" aria-pressed="true">Só com problema</button>
+        <button type="button" data-filtro="erro" aria-pressed="false">Erros</button>
+        <button type="button" data-filtro="atencao" aria-pressed="false">Atenção</button>
+        <button type="button" data-filtro="todas" aria-pressed="false">Todas</button>
+        <span class="spacer"></span>
+        <button type="button" id="baixar-csv">Baixar planilha (CSV)</button>
+        <button type="button" id="limpar">Limpar</button>
+      </div>
+      <div id="lista"></div>
+    </section>
+
+    <section class="grid2">
+      <div class="card">
+        <h2>Consultar um código</h2>
+        <p style="margin-top:0;color:var(--muted)">Digite um CST (3 dígitos) ou um cClassTrib (6 dígitos) para ver o que significa e onde pode ser usado.</p>
+        <form class="lookup" id="consulta" autocomplete="off">
+          <input id="codigo" inputmode="numeric" maxlength="6" placeholder="ex.: 200003 ou 011" aria-label="Código CST ou cClassTrib" />
+          <button type="submit" class="primary">Consultar</button>
+        </form>
+        <div id="consulta-saida"></div>
+      </div>
+      <div class="card">
+        <h2>O que é conferido</h2>
+        <ul class="rules">
+          <li>Itens sem o grupo IBS/CBS (regime normal e Simples tratados à parte)</li>
+          <li>CST e cClassTrib que não existem ou estavam fora da vigência na data da nota</li>
+          <li>cClassTrib que não pertence ao CST informado</li>
+          <li>cClassTrib que não pode ser usado em NF-e ou NFC-e</li>
+          <li>Grupos exigidos pelo CST que estão faltando (ou sobrando)</li>
+          <li>Percentual de redução diferente do oficial</li>
+          <li>Valores que não batem com base × alíquota, e IBS diferente de estadual + municipal</li>
+          <li>Totais da nota diferentes da soma dos itens</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p id="fonte">Carregando tabelas…</p>
+      <p><b>Projeto independente e de código aberto, não oficial.</b> As tabelas vêm da <a href="https://github.com/ReceitaFederal/calculadora-rtc-regime-regular" rel="noopener noreferrer">calculadora pública da Receita Federal</a> (licença MIT). O resultado ajuda a encontrar problemas, mas não substitui a validação da SEFAZ nem a orientação do seu contador.</p>
+      <p><a href="https://github.com/gavicoding/auditor-ibs-cbs" rel="noopener noreferrer">Código no GitHub</a> · linha de comando e biblioteca Python no mesmo repositório · encontrou um erro? <a href="https://github.com/gavicoding/auditor-ibs-cbs/issues/new/choose" rel="noopener noreferrer">abra uma issue</a></p>
+    </footer>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

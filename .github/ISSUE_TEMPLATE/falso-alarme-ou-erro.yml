@@ -1,0 +1,33 @@
+name: Falso alarme ou problema não encontrado
+description: O auditor apontou algo que está certo, ou deixou passar algo errado
+labels: ["regra"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ **Não cole XML real.** Troque CNPJ, CPF, nomes e valores por dados fictícios, ou cole só o trecho do grupo `IBSCBS`.
+  - type: input
+    id: codigo
+    attributes:
+      label: "Código do achado (ex.: AIC-015), se houver"
+  - type: textarea
+    id: trecho
+    attributes:
+      label: "Trecho fictício do XML"
+      render: xml
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: "O que saiu e o que você esperava"
+    validations:
+      required: true
+  - type: input
+    id: referencia
+    attributes:
+      label: "Referência (NT 2025.002, informe técnico, tabela), se souber"
+  - type: input
+    id: versao
+    attributes:
+      label: "Versão das tabelas (comando 'auditor-ibs-cbs tabelas' ou rodapé da página)"

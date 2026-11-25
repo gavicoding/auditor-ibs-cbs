@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Calculadora oficial da Receita Federal
+    url: https://github.com/ReceitaFederal/calculadora-rtc-regime-regular
+    about: Para dúvidas sobre o cálculo oficial do IBS/CBS, use o repositório da Receita.
