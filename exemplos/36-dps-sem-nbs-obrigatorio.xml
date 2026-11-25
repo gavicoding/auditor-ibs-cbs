@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DPS xmlns="http://www.sped.fazenda.gov.br/nfse"><infDPS><dhEmi>2026-11-20T10:15:00-03:00</dhEmi><serie>900</serie><nDPS>5004</nDPS><prest><CNPJ>11222333000181</CNPJ></prest><serv><cServ><cTribNac>010101</cTribNac><xDescServ>SERVICO FICTICIO DE EXEMPLO</xDescServ><cNBS></cNBS></cServ></serv><IBSCBS><finNFSe>0</finNFSe><cIndOp>100301</cIndOp><indDest>0</indDest><valores><trib><gIBSCBS><CST>200</CST><cClassTrib>200028</cClassTrib></gIBSCBS></trib></valores></IBSCBS></infDPS></DPS>

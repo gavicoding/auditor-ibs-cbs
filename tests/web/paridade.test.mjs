@@ -7,7 +7,10 @@ import { arredondar, auditar, criarTabelas, dec, lerNota, lerZip, XMLInvalido } 
 
 const raiz = fileURLToPath(new URL("../../", import.meta.url));
 const esperado = JSON.parse(readFileSync(raiz + "tests/esperado.json", "utf8"));
-const tabelas = criarTabelas(JSON.parse(readFileSync(raiz + "docs/tabelas-rtc.json", "utf8")));
+const tabelas = criarTabelas(
+  JSON.parse(readFileSync(raiz + "docs/tabelas-rtc.json", "utf8")),
+  JSON.parse(readFileSync(raiz + "docs/ncm.json", "utf8")).ncm,
+);
 const chave = (x) => [x[0], x[1], x[2] ?? ""].join("|");
 const ordenar = (lista) => [...lista].sort((a, b) => (chave(a) < chave(b) ? -1 : chave(a) > chave(b) ? 1 : 0));
 
@@ -42,7 +45,20 @@ test("zip de exemplo é lido no navegador/Node", async () => {
 });
 
 test("tabelas da página iguais às do pacote Python", () => {
-  const web = readFileSync(raiz + "docs/tabelas-rtc.json", "utf8");
-  const py = readFileSync(raiz + "src/auditor_ibs_cbs/dados/tabelas-rtc.json", "utf8");
-  assert.equal(web, py);
+  for (const nome of ["tabelas-rtc.json", "ncm.json"]) {
+    assert.equal(readFileSync(raiz + "docs/" + nome, "utf8"), readFileSync(raiz + "src/auditor_ibs_cbs/dados/" + nome, "utf8"));
+  }
+});
+
+test("CST fora da vigência (tabela modificada) também é pego na web", () => {
+  const dados = JSON.parse(readFileSync(raiz + "docs/tabelas-rtc.json", "utf8"));
+  dados.cst["000"].fim = "2026-06-30";
+  const t2 = criarTabelas(dados, null);
+  const r = auditar(lerNota(readFileSync(raiz + "exemplos/01-correta.xml", "utf8"), "x"), t2);
+  assert.ok(r.achados.some((a) => a.codigo === "AIC-012"));
+});
+
+test("exceção oficial de NCM (fígado gordo fora da cesta básica)", () => {
+  assert.equal(tabelas.aplicavel("200003", "ncm", "02071100", "2026-06-01"), true);
+  assert.equal(tabelas.aplicavel("200003", "ncm", "02074300", "2026-06-01"), false);
 });

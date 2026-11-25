@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Auditor IBS/CBS · NF-e e NFC-e</title>
-  <meta name="description" content="Confira o IBS e a CBS (reforma tributária) dos XMLs de NF-e e NFC-e: CST, cClassTrib, valores e totais, contra as tabelas oficiais. Grátis, código aberto e sem enviar nada: tudo roda no seu navegador." />
+  <title>Auditor IBS/CBS · reforma tributária</title>
+  <meta name="description" content="Confira o IBS e a CBS (reforma tributária) de NF-e, NFC-e, CT-e, BP-e, NF3-e e NFS-e: CST, cClassTrib, NCM, valores e totais, contra as tabelas oficiais. Grátis, código aberto e sem enviar nada: tudo roda no seu navegador." />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'" />
   <meta name="referrer" content="no-referrer" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a7f5a'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
@@ -65,6 +65,13 @@
     .achado h3 { margin: 0; font-size: 15px; } .achado p { margin: 2px 0 0; color: var(--muted); font-size: 14.5px; }
     .achado p.fix { color: var(--text); } .achado code { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
     .empty { color: var(--muted); text-align: center; padding: 18px; }
+    h2.secao { margin: 22px 0 10px; }
+    .resumo { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+    .mini-card { padding: 14px; } .mini-card h3 { margin: 0 0 8px; font-size: 15px; }
+    .rolagem { max-height: 260px; overflow: auto; }
+    table.mini { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+    table.mini th, table.mini td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    table.mini th { color: var(--muted); font-weight: 600; position: sticky; top: 0; background: var(--surface); }
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     h2 { font-size: 22px; margin: 0 0 10px; }
     ul.rules { margin: 0; padding-left: 18px; } ul.rules li { margin: 4px 0; }
@@ -82,9 +89,9 @@
 <body>
   <div class="wrap">
     <header class="top">
-      <span class="tag">REFORMA TRIBUTÁRIA · IBS E CBS · NF-e E NFC-e</span>
+      <span class="tag">REFORMA TRIBUTÁRIA · IBS E CBS · NF-e · NFC-e · CT-e · BP-e · NF3-e · NFS-e</span>
       <h1>Suas notas fiscais estão certas para o IBS e a CBS?</h1>
-      <p class="lead">Arraste os XMLs das suas NF-e e NFC-e (ou um arquivo .zip) e veja, item por item, o que está errado no grupo do IBS e da CBS e como corrigir. A conferência usa as tabelas oficiais de CST e cClassTrib.</p>
+      <p class="lead">Arraste os XMLs das suas notas (ou um arquivo .zip) e veja, item por item, o que está errado no IBS e na CBS e como corrigir. A conferência usa as tabelas oficiais de CST, cClassTrib e dos produtos e serviços que cada código aceita (NCM e NBS).</p>
       <p class="privacy">🔒 <span><b>Nada sai do seu computador.</b> Os arquivos são lidos aqui mesmo, no seu navegador. Não há envio, cadastro nem coleta de dados.</span></p>
     </header>
 
@@ -114,18 +121,22 @@
         <button type="button" data-filtro="atencao" aria-pressed="false">Atenção</button>
         <button type="button" data-filtro="todas" aria-pressed="false">Todas</button>
         <span class="spacer"></span>
-        <button type="button" id="baixar-csv">Baixar planilha (CSV)</button>
+        <button type="button" id="baixar-csv">Planilha de problemas (CSV)</button>
+        <button type="button" id="baixar-valores">Planilha de valores (CSV)</button>
         <button type="button" id="limpar">Limpar</button>
       </div>
+      <h2 id="resumo-titulo" class="secao hidden">Resumo do lote</h2>
+      <div id="resumo" class="resumo"></div>
+      <h2 class="secao">Documentos</h2>
       <div id="lista"></div>
     </section>
 
     <section class="grid2">
       <div class="card">
         <h2>Consultar um código</h2>
-        <p style="margin-top:0;color:var(--muted)">Digite um CST (3 dígitos) ou um cClassTrib (6 dígitos) para ver o que significa e onde pode ser usado.</p>
+        <p style="margin-top:0;color:var(--muted)">Digite um CST (3 dígitos), um cClassTrib (6 dígitos) ou o NCM do produto (8 dígitos). Pelo NCM você descobre quais códigos com benefício o produto pode usar.</p>
         <form class="lookup" id="consulta" autocomplete="off">
-          <input id="codigo" inputmode="numeric" maxlength="6" placeholder="ex.: 200003 ou 011" aria-label="Código CST ou cClassTrib" />
+          <input id="codigo" inputmode="numeric" maxlength="10" placeholder="ex.: 200003, 011 ou 10063021" aria-label="Código CST, cClassTrib ou NCM" />
           <button type="submit" class="primary">Consultar</button>
         </form>
         <div id="consulta-saida"></div>
@@ -134,13 +145,13 @@
         <h2>O que é conferido</h2>
         <ul class="rules">
           <li>Itens sem o grupo IBS/CBS (regime normal e Simples tratados à parte)</li>
-          <li>CST e cClassTrib que não existem ou estavam fora da vigência na data da nota</li>
-          <li>cClassTrib que não pertence ao CST informado</li>
-          <li>cClassTrib que não pode ser usado em NF-e ou NFC-e</li>
-          <li>Grupos exigidos pelo CST que estão faltando (ou sobrando)</li>
-          <li>Percentual de redução diferente do oficial</li>
-          <li>Valores que não batem com base × alíquota, e IBS diferente de estadual + municipal</li>
-          <li>Totais da nota diferentes da soma dos itens</li>
+          <li>CST e cClassTrib inexistentes, fora da vigência ou que não combinam entre si</li>
+          <li>cClassTrib que não pode ser usado naquele tipo de documento</li>
+          <li><b>Produto (NCM) ou serviço (NBS) que não pode usar o cClassTrib</b>, como uma redução da cesta básica num produto que não está no anexo da lei</li>
+          <li>NCM inexistente, e formato e campos obrigatórios do leiaute</li>
+          <li>Redução, alíquota efetiva e diferimento diferentes do oficial</li>
+          <li>Valores que não batem com base × alíquota, inclusive crédito presumido, compra governamental, tributação regular e monofásico</li>
+          <li>Totais do documento diferentes da soma dos itens</li>
         </ul>
       </div>
     </section>

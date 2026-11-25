@@ -1,4 +1,4 @@
-"""Tabelas oficiais de CST e cClassTrib do IBS/CBS.
+"""Tabelas oficiais de CST, cClassTrib, NCM/NBS aplicáveis e NCM do IBS/CBS.
 
 Os dados vêm do repositório público da calculadora da Receita Federal (licença MIT) e são
 gerados por ``ferramentas/exportar_tabelas.py``. Veja ``fonte`` para a versão usada.
@@ -7,12 +7,15 @@ gerados por ``ferramentas/exportar_tabelas.py``. Veja ``fonte`` para a versão u
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from functools import lru_cache
 from importlib import resources
 from pathlib import Path
 from typing import Any
+
+# cClassTrib que exigem NCM em NF-e/NFC-e mesmo sem lista própria (regra da calculadora oficial)
+EXIGEM_NCM_SEMPRE = frozenset({"200038", "515001"})
 
 
 def _vigente(inicio: str | None, fim: str | None, dia: date) -> bool:
@@ -26,6 +29,7 @@ def _vigente(inicio: str | None, fim: str | None, dia: date) -> bool:
 @dataclass(frozen=True)
 class Tabelas:
     dados: dict[str, Any]
+    caminho_ncm: str | None = field(default=None, compare=False)
 
     @property
     def fonte(self) -> dict[str, Any]:
@@ -45,6 +49,9 @@ class Tabelas:
     @staticmethod
     def vigente(registro: dict[str, Any], dia: date) -> bool:
         return _vigente(registro.get("inicio"), registro.get("fim"), dia)
+
+    def nome_documento(self, modelo: int) -> str:
+        return self.dados.get("tipos_documento", {}).get(str(modelo), f"modelo {modelo}")
 
     def permitido_no_modelo(self, codigo: str, modelo: int, dia: date) -> bool:
         reg = self.cclasstrib(codigo)
@@ -68,12 +75,59 @@ class Tabelas:
                 return a["percentual"]
         return None
 
+    # --- NCM / NBS aplicáveis -------------------------------------------------------------
+
+    def tem_lista(self, codigo: str, tipo: str, dia: date) -> bool:
+        """O cClassTrib só vale para alguns NCMs (tipo='ncm') ou NBSs (tipo='nbs') na data?"""
+        reg = self.cclasstrib(codigo)
+        return bool(reg) and any(_vigente(n["inicio"], n["fim"], dia) for n in reg.get(tipo, []))
+
+    def aplicavel(self, codigo: str, tipo: str, valor: str, dia: date) -> bool:
+        """Mesma regra da calculadora oficial: casa por prefixo e respeita as exceções vigentes."""
+        reg = self.cclasstrib(codigo)
+        if not reg:
+            return False
+        casam = [n for n in reg.get(tipo, []) if valor.startswith(n["codigo"]) and _vigente(n["inicio"], n["fim"], dia)]
+        if not casam:
+            return False
+        tem_excecao = any(valor.startswith(e["codigo"]) and _vigente(e["inicio"], e["fim"], dia) for n in casam for e in n.get("excecoes", []))
+        if not tem_excecao:
+            return True
+        return any(not n.get("excecoes") or any(not _vigente(e["inicio"], e["fim"], dia) for e in n["excecoes"]) for n in casam)
+
+    def anexos_do_cclasstrib(self, codigo: str, tipo: str, dia: date) -> list[str]:
+        """Itens de anexo da LC 214/2025 ligados ao cClassTrib (ex.: 'Anexo I, item 1')."""
+        reg = self.cclasstrib(codigo) or {}
+        vistos: list[str] = []
+        for n in reg.get(tipo, []):
+            a = self.dados.get("anexos", {}).get(str(n.get("anexo")))
+            if a and _vigente(n["inicio"], n["fim"], dia):
+                rotulo = f"Anexo {a['anexo']}, item {a['item']}"
+                if rotulo not in vistos:
+                    vistos.append(rotulo)
+        return vistos
+
+    # --- tabela NCM (carregada só quando precisa) --------------------------------------------
+
+    def ncm(self, codigo: str) -> list | None:
+        """[descrição, início, fim] do NCM de 8 dígitos, ou None se não existe."""
+        return _carregar_ncm(self.caminho_ncm).get(codigo)
+
+
+@lru_cache(maxsize=2)
+def _carregar_ncm(caminho: str | None) -> dict[str, list]:
+    if caminho:
+        texto = Path(caminho).read_text(encoding="utf-8")
+    else:
+        texto = resources.files("auditor_ibs_cbs").joinpath("dados/ncm.json").read_text(encoding="utf-8")
+    return json.loads(texto)["ncm"]
+
 
 @lru_cache(maxsize=4)
-def carregar(caminho: str | None = None) -> Tabelas:
-    """Carrega as tabelas embutidas no pacote, ou um JSON alternativo (mesmo formato)."""
+def carregar(caminho: str | None = None, caminho_ncm: str | None = None) -> Tabelas:
+    """Carrega as tabelas embutidas no pacote, ou arquivos alternativos (mesmo formato)."""
     if caminho:
         texto = Path(caminho).read_text(encoding="utf-8")
     else:
         texto = resources.files("auditor_ibs_cbs").joinpath("dados/tabelas-rtc.json").read_text(encoding="utf-8")
-    return Tabelas(json.loads(texto))
+    return Tabelas(json.loads(texto), caminho_ncm)

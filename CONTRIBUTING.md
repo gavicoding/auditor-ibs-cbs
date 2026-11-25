@@ -18,14 +18,14 @@ Obrigado por querer ajudar! Este projeto existe para a comunidade: contadores, a
 ## Regras do código
 
 - A regra entra em `src/auditor_ibs_cbs/regras.py` **e** em `docs/auditor.js`, com o mesmo código `AIC-0xx`, gravidade e texto.
-- Inclua um XML fictício em `exemplos/` (gerado por `ferramentas/gerar_exemplos.py`) e atualize `tests/esperado.json`.
+- Inclua um XML fictício em `exemplos/` (gerado por `ferramentas/gerar_exemplos.py`) e regere o gabarito com `python ferramentas/gerar_esperado.py`, revisando o diff.
 - Rode antes de abrir o PR:
 
 ```bash
 ruff check . && ruff format --check .
 pytest
 node --test tests/web/paridade.test.mjs
-python ferramentas/fuzz_paridade.py /tmp/fuzz 500 && node tests/web/fuzz.mjs /tmp/fuzz
+python ferramentas/fuzz_paridade.py /tmp/fuzz 2000 && node tests/web/fuzz.mjs /tmp/fuzz
 python ferramentas/sincronizar_web.py   # se mexeu nas tabelas ou nos exemplos
 ```
 

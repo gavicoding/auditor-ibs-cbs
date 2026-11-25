@@ -35,7 +35,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- src/auditor_ibs_cbs/dados docs/tabelas-rtc.json; then
+          if git diff --quiet -- src/auditor_ibs_cbs/dados docs/tabelas-rtc.json docs/ncm.json; then
             echo "Tabelas já estão atualizadas."
             exit 0
           fi
@@ -44,7 +44,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$RAMO"
-          git add src/auditor_ibs_cbs/dados docs/tabelas-rtc.json
+          git add src/auditor_ibs_cbs/dados docs/tabelas-rtc.json docs/ncm.json
           git commit -m "data: tabelas oficiais base $VERSAO"
           git push origin "$RAMO"
           CORPO="Extração automática do repositório público da Receita Federal (calculadora-rtc-regime-regular)."

@@ -39,11 +39,12 @@ jobs:
           git diff --exit-code -- docs/
       - name: Mesma bateria de testes na versão web
         run: node --test tests/web/paridade.test.mjs
-      - name: Python x web em 1000 notas aleatórias
+      - name: Python x web em 3000 documentos aleatórios
         run: |
-          python ferramentas/fuzz_paridade.py "$RUNNER_TEMP/fuzz" 1000 "${{ github.run_id }}"
+          python ferramentas/fuzz_paridade.py "$RUNNER_TEMP/fuzz" 3000 "${{ github.run_id }}"
           node tests/web/fuzz.mjs "$RUNNER_TEMP/fuzz"
-      - name: Exemplos continuam iguais ao gerador
+      - name: Exemplos e gabarito continuam iguais ao gerador
         run: |
           python ferramentas/gerar_exemplos.py
-          git diff --exit-code -- exemplos/*.xml
+          python ferramentas/gerar_esperado.py
+          git diff --exit-code -- "exemplos/*.xml" tests/esperado.json

@@ -4,7 +4,10 @@ import { auditar, criarTabelas, lerNota } from "../../docs/auditor.js";
 
 const pasta = process.argv[2];
 const raiz = new URL("../../", import.meta.url);
-const tabelas = criarTabelas(JSON.parse(readFileSync(new URL("docs/tabelas-rtc.json", raiz), "utf8")));
+const tabelas = criarTabelas(
+  JSON.parse(readFileSync(new URL("docs/tabelas-rtc.json", raiz), "utf8")),
+  JSON.parse(readFileSync(new URL("docs/ncm.json", raiz), "utf8")).ncm,
+);
 const gabarito = JSON.parse(readFileSync(`${pasta}/gabarito.json`, "utf8"));
 const chave = (x) => [x[0], x[1], x[2] ?? ""].join("|");
 let falhas = 0;

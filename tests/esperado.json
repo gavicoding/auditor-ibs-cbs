@@ -123,7 +123,223 @@
  "13-xml-com-doctype.xml": {
   "ilegivel": true
  },
- "14-nao-e-nfe.xml": {
+ "14-nao-e-documento-fiscal.xml": {
   "ilegivel": true
+ },
+ "15-ncm-fora-da-lista-cesta-basica.xml": {
+  "achados": [
+   [
+    "AIC-018",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "16-ncm-zerado-com-cclasstrib-de-lista.xml": {
+  "achados": [
+   [
+    "AIC-017",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "17-ncm-inexistente.xml": {
+  "achados": [
+   [
+    "AIC-019",
+    "atencao",
+    "1"
+   ]
+  ]
+ },
+ "18-formato-invalido.xml": {
+  "achados": [
+   [
+    "AIC-041",
+    "erro",
+    null
+   ],
+   [
+    "AIC-050",
+    "erro",
+    "1"
+   ],
+   [
+    "AIC-050",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "19-campo-obrigatorio-ausente.xml": {
+  "achados": [
+   [
+    "AIC-051",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "20-diferimento-valor-errado.xml": {
+  "achados": [
+   [
+    "AIC-030",
+    "atencao",
+    "1"
+   ],
+   [
+    "AIC-034",
+    "atencao",
+    "1"
+   ]
+  ]
+ },
+ "21-diferimento-correto.xml": {
+  "achados": []
+ },
+ "22-aliquota-efetiva-errada.xml": {
+  "achados": [
+   [
+    "AIC-033",
+    "atencao",
+    "1"
+   ]
+  ]
+ },
+ "23-credito-presumido-errado.xml": {
+  "achados": [
+   [
+    "AIC-035",
+    "atencao",
+    "1"
+   ]
+  ]
+ },
+ "24-compra-governamental-errada.xml": {
+  "achados": [
+   [
+    "AIC-036",
+    "atencao",
+    "1"
+   ]
+  ]
+ },
+ "25-tributacao-regular-par-errado.xml": {
+  "achados": [
+   [
+    "AIC-015",
+    "erro",
+    "1"
+   ]
+  ]
+ },
+ "26-monofasico-valor-errado.xml": {
+  "achados": [
+   [
+    "AIC-038",
+    "atencao",
+    "1"
+   ]
+  ]
+ },
+ "27-total-diferido-errado.xml": {
+  "achados": [
+   [
+    "AIC-041",
+    "erro",
+    null
+   ]
+  ]
+ },
+ "28-cte-correto.xml": {
+  "achados": []
+ },
+ "29-cte-cclasstrib-nao-permitido.xml": {
+  "achados": [
+   [
+    "AIC-016",
+    "erro",
+    null
+   ]
+  ]
+ },
+ "30-cte-os-correto.xml": {
+  "achados": []
+ },
+ "31-bpe-sem-grupo.xml": {
+  "achados": [
+   [
+    "AIC-010",
+    "erro",
+    null
+   ]
+  ]
+ },
+ "32-nf3e-total-errado.xml": {
+  "achados": [
+   [
+    "AIC-041",
+    "erro",
+    null
+   ]
+  ]
+ },
+ "33-nfse-correta.xml": {
+  "achados": []
+ },
+ "34-nfse-nbs-fora-da-lista.xml": {
+  "achados": [
+   [
+    "AIC-025",
+    "erro",
+    null
+   ]
+  ]
+ },
+ "35-nfse-valor-errado.xml": {
+  "achados": [
+   [
+    "AIC-030",
+    "atencao",
+    null
+   ]
+  ]
+ },
+ "36-dps-sem-nbs-obrigatorio.xml": {
+  "achados": [
+   [
+    "AIC-024",
+    "erro",
+    null
+   ]
+  ]
+ },
+ "37-modelo-nao-suportado.xml": {
+  "achados": [
+   [
+    "AIC-002",
+    "info",
+    null
+   ]
+  ]
+ },
+ "38-sem-data-de-emissao.xml": {
+  "achados": [
+   [
+    "AIC-003",
+    "erro",
+    null
+   ]
+  ]
+ },
+ "39-sem-totais.xml": {
+  "achados": [
+   [
+    "AIC-040",
+    "erro",
+    null
+   ]
+  ]
  }
 }

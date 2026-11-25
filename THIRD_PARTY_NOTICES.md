@@ -1,6 +1,6 @@
 # Avisos de terceiros / Third-party notices
 
-Os arquivos `src/auditor_ibs_cbs/dados/tabelas-rtc.json` e `docs/tabelas-rtc.json` são derivados das migrações SQL do projeto **Calculadora de Tributos da Reforma Tributária (regime regular)**, da Receita Federal do Brasil:
+Os arquivos `tabelas-rtc.json` e `ncm.json` (em `src/auditor_ibs_cbs/dados/` e `docs/`) são derivados das migrações SQL, e os esquemas em `src/auditor_ibs_cbs/dados/xsd/` são cópias dos arquivos do projeto **Calculadora de Tributos da Reforma Tributária (regime regular)**, da Receita Federal do Brasil:
 
 - Repositório: https://github.com/ReceitaFederal/calculadora-rtc-regime-regular
 - A versão e o commit usados estão no campo `fonte` do próprio arquivo JSON.

@@ -20,7 +20,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-DESTINO = Path(__file__).resolve().parent.parent / "src" / "auditor_ibs_cbs" / "dados" / "tabelas-rtc.json"
+DADOS = Path(__file__).resolve().parent.parent / "src" / "auditor_ibs_cbs" / "dados"
+DESTINO = DADOS / "tabelas-rtc.json"
+DESTINO_NCM = DADOS / "ncm.json"
 FONTE_URL = "https://github.com/ReceitaFederal/calculadora-rtc-regime-regular"
 TRIBUTOS_IBS_CBS = (2, 3, 4)  # CBS, IBSUF, IBSMun (1 = Imposto Seletivo, fora do escopo)
 
@@ -56,9 +58,7 @@ def commit_da_fonte(repo: Path) -> str | None:
 
 def exportar(con: sqlite3.Connection, repo: Path) -> dict:
     con.row_factory = sqlite3.Row
-    versao = con.execute(
-        "SELECT VRBD_VERSAO_BASE_DADO, VRBD_DATA, VRBD_DESCRICAO FROM VERSAO_BASE_DADO ORDER BY VRBD_ID DESC LIMIT 1"
-    ).fetchone()
+    versao = con.execute("SELECT VRBD_VERSAO_BASE_DADO, VRBD_DATA, VRBD_DESCRICAO FROM VERSAO_BASE_DADO ORDER BY VRBD_ID DESC LIMIT 1").fetchone()
     filtro = f"SELECT TRST_SITR_ID FROM TRIBUTO_SITUACAO_TRIBUTARIA WHERE TRST_TBTO_ID IN {TRIBUTOS_IBS_CBS}"
 
     cst = {}
@@ -82,6 +82,7 @@ def exportar(con: sqlite3.Connection, repo: Path) -> dict:
     tributos = {r["TBTO_ID"]: r["TBTO_SIGLA"] for r in con.execute("SELECT TBTO_ID, TBTO_SIGLA FROM TRIBUTO")}
 
     cclass = {}
+    anexos_usados: set[int] = set()
     consulta = f"""
         SELECT c.*, s.SITR_CD FROM CLASSIFICACAO_TRIBUTARIA c
         JOIN SITUACAO_TRIBUTARIA s ON s.SITR_ID = c.CLTR_SITR_ID
@@ -90,9 +91,7 @@ def exportar(con: sqlite3.Connection, repo: Path) -> dict:
     for r in con.execute(consulta):
         dfe = [
             {"modelo": modelos[d["TDCL_TPDF_ID"]], "inicio": d["TDCL_INICIO_VIGENCIA"], "fim": d["TDCL_FIM_VIGENCIA"]}
-            for d in con.execute(
-                "SELECT * FROM TIPO_DFE_CLASSIFICACAO WHERE TDCL_CLTR_ID = ? ORDER BY TDCL_TPDF_ID", (r["CLTR_ID"],)
-            )
+            for d in con.execute("SELECT * FROM TIPO_DFE_CLASSIFICACAO WHERE TDCL_CLTR_ID = ? ORDER BY TDCL_TPDF_ID", (r["CLTR_ID"],))
         ]
         reducao = [
             {
@@ -106,6 +105,33 @@ def exportar(con: sqlite3.Connection, repo: Path) -> dict:
                 (r["CLTR_ID"],),
             )
         ]
+        nomenclatura = {}
+        for tipo, tab, exc, pre_n, pre_e in (
+            ("ncm", "NCM_APLICAVEL", "EXCECAO_NCM_APLICAVEL", "NCMA", "ENCM"),
+            ("nbs", "NBS_APLICAVEL", "EXCECAO_NBS_APLICAVEL", "NBSA", "ENBS"),
+        ):
+            lista = []
+            for a in con.execute(f"SELECT * FROM {tab} WHERE {pre_n}_CLTR_ID = ? ORDER BY {pre_n}_{tipo.upper()}_CD", (r["CLTR_ID"],)):
+                excecoes = [
+                    {
+                        "codigo": e[f"{pre_e}_{tipo.upper()}_CD"],
+                        "inicio": e[f"{pre_e}_INICIO_VIGENCIA"],
+                        "fim": e[f"{pre_e}_FIM_VIGENCIA"],
+                    }
+                    for e in con.execute(f"SELECT * FROM {exc} WHERE {pre_e}_{pre_n}_ID = ?", (a[f"{pre_n}_ID"],))
+                ]
+                entrada = {
+                    "codigo": a[f"{pre_n}_{tipo.upper()}_CD"],
+                    "anexo": a[f"{pre_n}_ANXO_ID"],
+                    "inicio": a[f"{pre_n}_INICIO_VIGENCIA"],
+                    "fim": a[f"{pre_n}_FIM_VIGENCIA"],
+                }
+                if excecoes:
+                    entrada["excecoes"] = excecoes
+                lista.append(entrada)
+                if entrada["anexo"] is not None:
+                    anexos_usados.add(entrada["anexo"])
+            nomenclatura[tipo] = lista
         cclass[r["CLTR_CD"]] = {
             "cst": r["SITR_CD"],
             "descricao": r["CLTR_DESCRICAO"],
@@ -114,6 +140,9 @@ def exportar(con: sqlite3.Connection, repo: Path) -> dict:
             "fim": r["CLTR_FIM_VIGENCIA"],
             "documentos": dfe,
             "reducao": reducao,
+            "nomenclatura": r["CLTR_NOMENCLATURA"],
+            "ncm": nomenclatura["ncm"],
+            "nbs": nomenclatura["nbs"],
         }
 
     aliquotas = [
@@ -125,6 +154,13 @@ def exportar(con: sqlite3.Connection, repo: Path) -> dict:
         }
         for r in con.execute("SELECT * FROM ALIQUOTA_REFERENCIA ORDER BY ALRE_TBTO_ID, ALRE_INICIO_VIGENCIA")
     ]
+
+    anexos = {}
+    for a in con.execute("SELECT * FROM ANEXO ORDER BY ANXO_ID"):
+        if a["ANXO_ID"] in anexos_usados:
+            anexos[str(a["ANXO_ID"])] = {"anexo": a["ANXO_NUMERO"], "item": a["ANXO_NUMERO_ITEM"], "texto": a["ANXO_TEXTO_ITEM"]}
+
+    tipos_dfe = {str(r["TPDF_TIPO"]): r["TPDF_SIGLA"] for r in con.execute("SELECT TPDF_TIPO, TPDF_SIGLA FROM TIPO_DFE ORDER BY TPDF_TIPO")}
 
     return {
         "fonte": {
@@ -141,6 +177,17 @@ def exportar(con: sqlite3.Connection, repo: Path) -> dict:
         "cst": cst,
         "cclasstrib": cclass,
         "aliquota_referencia": aliquotas,
+        "anexos": anexos,
+        "tipos_documento": tipos_dfe,
+    }
+
+
+def exportar_ncm(con: sqlite3.Connection) -> dict:
+    """NCMs de 8 dígitos (com descrição e vigência), para conferir se o NCM do item existe."""
+    con.row_factory = sqlite3.Row
+    return {
+        r["NCM_CD"]: [r["NCM_DESCRICAO"], r["NCM_INICIO_VIGENCIA"], r["NCM_FIM_VIGENCIA"]]
+        for r in con.execute("SELECT * FROM NCM WHERE LENGTH(NCM_CD) = 8 ORDER BY NCM_CD")
     }
 
 
@@ -149,12 +196,15 @@ def main(argv: list[str]) -> int:
         print(__doc__)
         return 2
     repo = Path(argv[1])
-    dados = exportar(montar_banco(repo), repo)
+    con = montar_banco(repo)
+    dados = exportar(con, repo)
+    ncm = exportar_ncm(con)
     DESTINO.parent.mkdir(parents=True, exist_ok=True)
     DESTINO.write_text(json.dumps(dados, ensure_ascii=False, indent=1, sort_keys=False) + "\n", encoding="utf-8")
+    DESTINO_NCM.write_text(json.dumps({"fonte": dados["fonte"], "ncm": ncm}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(
         f"{DESTINO.name}: base {dados['fonte']['versao_base']} ({dados['fonte']['data_base']}), "
-        f"{len(dados['cst'])} CST, {len(dados['cclasstrib'])} cClassTrib"
+        f"{len(dados['cst'])} CST, {len(dados['cclasstrib'])} cClassTrib, {len(ncm)} NCM"
     )
     return 0
 
