@@ -30,6 +30,8 @@ from auditor_ibs_cbs.tabelas import EXIGEM_NCM_SEMPRE  # noqa: E402
 DESTINO = RAIZ / "sql"
 DIALETOS = ("sqlserver", "postgresql", "mysql", "sqlite")
 CODIGOS_SQL = {"AIC-011", "AIC-013", "AIC-014", "AIC-015", "AIC-016", "AIC-017", "AIC-018"}
+# tamanho das colunas de texto (o teste confere que os dados oficiais cabem)
+LIMITES = {"cst": 300, "cclasstrib": 1000, "tipo_aliquota": 60, "ncm": 4000}
 
 
 _UNICODE = False  # SQL Server: literais N'...' para preservar acentos
@@ -69,17 +71,17 @@ def tabelas_sql(d: str, t) -> str:
         "-- Gerado por ferramentas/gerar_sql.py; não edite à mão.",
         "",
         f"CREATE TABLE ibscbs_versao (base {tx(10)} NOT NULL, data_base CHAR(10) NOT NULL, fonte {tx(200)} NOT NULL);",
-        f"CREATE TABLE ibscbs_cst (cst CHAR(3) NOT NULL PRIMARY KEY, descricao {tx(300)} NOT NULL, inicio CHAR(10), fim CHAR(10),"
+        f"CREATE TABLE ibscbs_cst (cst CHAR(3) NOT NULL PRIMARY KEY, descricao {tx(LIMITES['cst'])} NOT NULL, inicio CHAR(10), fim CHAR(10),"
         " exige_gibscbs SMALLINT NOT NULL, exige_gred SMALLINT NOT NULL, exige_gdif SMALLINT NOT NULL);",
-        f"CREATE TABLE ibscbs_cclasstrib (cclasstrib CHAR(6) NOT NULL PRIMARY KEY, cst CHAR(3) NOT NULL, descricao {tx(600)} NOT NULL,"
-        f" tipo_aliquota {tx(60)}, inicio CHAR(10), fim CHAR(10));",
+        f"CREATE TABLE ibscbs_cclasstrib (cclasstrib CHAR(6) NOT NULL PRIMARY KEY, cst CHAR(3) NOT NULL, descricao {tx(LIMITES['cclasstrib'])} NOT NULL,"
+        f" tipo_aliquota {tx(LIMITES['tipo_aliquota'])}, inicio CHAR(10), fim CHAR(10));",
         "CREATE TABLE ibscbs_cclasstrib_documento (cclasstrib CHAR(6) NOT NULL, modelo SMALLINT NOT NULL, inicio CHAR(10), fim CHAR(10));",
         f"CREATE TABLE ibscbs_cclasstrib_reducao (cclasstrib CHAR(6) NOT NULL, tributo {tx(10)} NOT NULL, percentual DECIMAL(7,4) NOT NULL,"
         " inicio CHAR(10), fim CHAR(10));",
         "CREATE TABLE ibscbs_cclasstrib_ncm (id INT NOT NULL PRIMARY KEY, cclasstrib CHAR(6) NOT NULL, prefixo VARCHAR(8) NOT NULL,"
         " inicio CHAR(10), fim CHAR(10));",
         "CREATE TABLE ibscbs_cclasstrib_ncm_excecao (ncm_id INT NOT NULL, prefixo VARCHAR(8) NOT NULL, inicio CHAR(10), fim CHAR(10));",
-        f"CREATE TABLE ibscbs_ncm (ncm CHAR(8) NOT NULL PRIMARY KEY, descricao {tx(1000)} NOT NULL, inicio CHAR(10), fim CHAR(10));",
+        f"CREATE TABLE ibscbs_ncm (ncm CHAR(8) NOT NULL PRIMARY KEY, descricao {tx(LIMITES['ncm'])} NOT NULL, inicio CHAR(10), fim CHAR(10));",
         "CREATE INDEX ix_ibscbs_doc ON ibscbs_cclasstrib_documento (cclasstrib, modelo);",
         "CREATE INDEX ix_ibscbs_ncm ON ibscbs_cclasstrib_ncm (cclasstrib);",
         "",

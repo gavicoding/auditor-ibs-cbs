@@ -4,12 +4,12 @@
 
 CREATE TABLE ibscbs_versao (base NVARCHAR(10) NOT NULL, data_base CHAR(10) NOT NULL, fonte NVARCHAR(200) NOT NULL);
 CREATE TABLE ibscbs_cst (cst CHAR(3) NOT NULL PRIMARY KEY, descricao NVARCHAR(300) NOT NULL, inicio CHAR(10), fim CHAR(10), exige_gibscbs SMALLINT NOT NULL, exige_gred SMALLINT NOT NULL, exige_gdif SMALLINT NOT NULL);
-CREATE TABLE ibscbs_cclasstrib (cclasstrib CHAR(6) NOT NULL PRIMARY KEY, cst CHAR(3) NOT NULL, descricao NVARCHAR(600) NOT NULL, tipo_aliquota NVARCHAR(60), inicio CHAR(10), fim CHAR(10));
+CREATE TABLE ibscbs_cclasstrib (cclasstrib CHAR(6) NOT NULL PRIMARY KEY, cst CHAR(3) NOT NULL, descricao NVARCHAR(1000) NOT NULL, tipo_aliquota NVARCHAR(60), inicio CHAR(10), fim CHAR(10));
 CREATE TABLE ibscbs_cclasstrib_documento (cclasstrib CHAR(6) NOT NULL, modelo SMALLINT NOT NULL, inicio CHAR(10), fim CHAR(10));
 CREATE TABLE ibscbs_cclasstrib_reducao (cclasstrib CHAR(6) NOT NULL, tributo NVARCHAR(10) NOT NULL, percentual DECIMAL(7,4) NOT NULL, inicio CHAR(10), fim CHAR(10));
 CREATE TABLE ibscbs_cclasstrib_ncm (id INT NOT NULL PRIMARY KEY, cclasstrib CHAR(6) NOT NULL, prefixo VARCHAR(8) NOT NULL, inicio CHAR(10), fim CHAR(10));
 CREATE TABLE ibscbs_cclasstrib_ncm_excecao (ncm_id INT NOT NULL, prefixo VARCHAR(8) NOT NULL, inicio CHAR(10), fim CHAR(10));
-CREATE TABLE ibscbs_ncm (ncm CHAR(8) NOT NULL PRIMARY KEY, descricao NVARCHAR(1000) NOT NULL, inicio CHAR(10), fim CHAR(10));
+CREATE TABLE ibscbs_ncm (ncm CHAR(8) NOT NULL PRIMARY KEY, descricao NVARCHAR(4000) NOT NULL, inicio CHAR(10), fim CHAR(10));
 CREATE INDEX ix_ibscbs_doc ON ibscbs_cclasstrib_documento (cclasstrib, modelo);
 CREATE INDEX ix_ibscbs_ncm ON ibscbs_cclasstrib_ncm (cclasstrib);
 

@@ -65,3 +65,16 @@ def test_documentos_aleatorios(banco):
     obtido, esperado = _comparar(banco, docs)
     assert obtido == esperado, (sorted(obtido - esperado)[:5], sorted(esperado - obtido)[:5])
     assert len(esperado) > 300
+
+
+def test_dados_cabem_nas_colunas():
+    """SQLite não acusa estouro de tamanho; PostgreSQL, MySQL e SQL Server sim."""
+    from auditor_ibs_cbs.tabelas import _carregar_ncm
+
+    lim = gerar_sql.LIMITES
+    assert max(len(v["descricao"]) for v in T.dados["cst"].values()) <= lim["cst"]
+    assert max(len(v["descricao"]) for v in T.dados["cclasstrib"].values()) <= lim["cclasstrib"]
+    assert max(len(v["tipo_aliquota"] or "") for v in T.dados["cclasstrib"].values()) <= lim["tipo_aliquota"]
+    assert max(len(v[0]) for v in _carregar_ncm(None).values()) <= lim["ncm"]
+    datas = [v[1] for v in _carregar_ncm(None).values()] + [v[2] for v in _carregar_ncm(None).values()]
+    assert all(len(d) == 10 for d in datas)
