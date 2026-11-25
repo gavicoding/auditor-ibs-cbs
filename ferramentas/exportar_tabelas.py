@@ -194,7 +194,7 @@ def exportar_ncm(con: sqlite3.Connection) -> dict:
     """NCMs de 8 dígitos (com descrição e vigência), para conferir se o NCM do item existe."""
     con.row_factory = sqlite3.Row
     return {
-        r["NCM_CD"]: [r["NCM_DESCRICAO"], r["NCM_INICIO_VIGENCIA"], r["NCM_FIM_VIGENCIA"]]
+        r["NCM_CD"]: [r["NCM_DESCRICAO"], (r["NCM_INICIO_VIGENCIA"] or "")[:10] or None, (r["NCM_FIM_VIGENCIA"] or "")[:10] or None]
         for r in con.execute("SELECT * FROM NCM WHERE LENGTH(NCM_CD) = 8 ORDER BY NCM_CD")
     }
 

@@ -294,3 +294,10 @@ def test_cli_consultar(capsys):
 
 def test_cli_sem_xml(tmp_path):
     assert main(["auditar", str(tmp_path)]) == 2
+
+
+def test_datas_das_tabelas_sem_hora():
+    """Datas com hora (ex.: '2026-01-01 00:00:00') fariam o NCM não valer no primeiro dia."""
+    from auditor_ibs_cbs.tabelas import _carregar_ncm
+
+    assert all(len(v[1]) == 10 and len(v[2]) == 10 for v in _carregar_ncm(None).values())
