@@ -7,13 +7,14 @@ const raiz = new URL("../../", import.meta.url);
 const tabelas = criarTabelas(
   JSON.parse(readFileSync(new URL("docs/tabelas-rtc.json", raiz), "utf8")),
   JSON.parse(readFileSync(new URL("docs/ncm.json", raiz), "utf8")).ncm,
+  JSON.parse(readFileSync(new URL("docs/nt.json", raiz), "utf8")),
 );
 const gabarito = JSON.parse(readFileSync(`${pasta}/gabarito.json`, "utf8"));
-const chave = (x) => [x[0], x[1], x[2] ?? ""].join("|");
+const chave = (x) => [x[0], x[1], x[2] ?? "", x[3] ?? ""].join("|");
 let falhas = 0;
 for (const [nome, esperado] of Object.entries(gabarito)) {
   const r = auditar(lerNota(readFileSync(`${pasta}/${nome}`, "utf8"), nome), tabelas);
-  const obtido = r.achados.map((a) => [a.codigo, a.gravidade, a.item]).map(chave).sort();
+  const obtido = r.achados.map((a) => [a.codigo, a.gravidade, a.item, a.rejeicao ?? null]).map(chave).sort();
   const esp = esperado.map(chave).sort();
   if (JSON.stringify(obtido) !== JSON.stringify(esp)) {
     falhas++;

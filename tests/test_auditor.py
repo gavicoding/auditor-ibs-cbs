@@ -27,7 +27,7 @@ def ler(nome: str):
 
 def codigos(nome: str, tabelas=T) -> list[list]:
     r = auditar(ler(nome), tabelas)
-    return sorted(([a.codigo, a.gravidade, a.item] for a in r.achados), key=lambda x: (x[0], x[1], x[2] or ""))
+    return sorted(([a.codigo, a.gravidade, a.item, a.rejeicao] for a in r.achados), key=lambda x: (x[0], x[1], x[2] or "", x[3] or ""))
 
 
 @pytest.mark.parametrize("nome", sorted(k for k in ESPERADO if not ESPERADO[k].get("ilegivel")))
@@ -123,7 +123,7 @@ def test_cst_fora_da_vigencia_com_tabela_modificada():
     dados = copy.deepcopy(T.dados)
     dados["cst"]["000"]["fim"] = "2026-06-30"
     tabela = Tabelas(dados)
-    assert ["AIC-012", "erro", "1"] in codigos("01-correta.xml", tabela)
+    assert ["AIC-012", "erro", "1", None] in codigos("01-correta.xml", tabela)
 
 
 # ---------- cálculo ----------
@@ -240,9 +240,24 @@ def test_xsd_aponta_erros_de_leiaute():
 
 def test_cli_codigo_de_saida():
     assert main(["auditar", str(EXEMPLOS / "01-correta.xml"), "--falhar-em", "erro"]) == 0
-    assert main(["auditar", str(EXEMPLOS / "02-sem-grupo-regime-normal.xml"), "--falhar-em", "erro"]) == 1
-    assert main(["auditar", str(EXEMPLOS / "08-reducao-diferente-da-oficial.xml"), "--falhar-em", "erro"]) == 0
-    assert main(["auditar", str(EXEMPLOS / "08-reducao-diferente-da-oficial.xml"), "--falhar-em", "atencao"]) == 1
+    assert main(["auditar", str(EXEMPLOS / "08-reducao-diferente-da-oficial.xml"), "--falhar-em", "erro"]) == 1
+    # sem o grupo IBS/CBS é atenção: a rejeição 1115 ainda é "implementação futura" em produção
+    assert main(["auditar", str(EXEMPLOS / "02-sem-grupo-regime-normal.xml"), "--falhar-em", "erro"]) == 0
+    assert main(["auditar", str(EXEMPLOS / "02-sem-grupo-regime-normal.xml"), "--falhar-em", "atencao"]) == 1
+
+
+def test_achado_traz_a_regra_oficial():
+    r = auditar(ler((EXEMPLOS / "07-valores-errados.xml").name), T)
+    total = next(a for a in r.achados if a.codigo == "AIC-041")
+    assert (total.rejeicao, total.regra_nt, total.pagina_nt, total.em_producao) == ("1076", "W35-10", 71, True)
+    aviso = auditar(ler("02-sem-grupo-regime-normal.xml"), T).achados[0]
+    assert (aviso.rejeicao, aviso.em_producao, aviso.gravidade) == ("1115", False, "atencao")
+
+
+def test_total_exige_igualdade_exata():
+    xml = (EXEMPLOS / "01-correta.xml").read_text(encoding="utf-8").replace("<vCBS>1.69</vCBS><vCredPres>", "<vCBS>1.70</vCBS><vCredPres>")
+    r = auditar(ler_bytes(xml.encode(), "x"), T)
+    assert any(a.codigo == "AIC-041" and a.rejeicao == "1091" for a in r.achados)
 
 
 @pytest.mark.parametrize("formato", ["texto", "json", "csv", "md", "html", "resumo-csv"])

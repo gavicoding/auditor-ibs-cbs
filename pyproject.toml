@@ -48,3 +48,4 @@ testpaths = ["tests"]
 
 [tool.ruff.lint.per-file-ignores]
 "src/auditor_ibs_cbs/relatorio.py" = ["E501"]  # CSS embutido do relatório HTML
+"src/auditor_ibs_cbs/regras.py" = ["E501"]  # mensagens ao usuário

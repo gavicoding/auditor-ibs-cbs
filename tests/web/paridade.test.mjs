@@ -10,8 +10,9 @@ const esperado = JSON.parse(readFileSync(raiz + "tests/esperado.json", "utf8"));
 const tabelas = criarTabelas(
   JSON.parse(readFileSync(raiz + "docs/tabelas-rtc.json", "utf8")),
   JSON.parse(readFileSync(raiz + "docs/ncm.json", "utf8")).ncm,
+  JSON.parse(readFileSync(raiz + "docs/nt.json", "utf8")),
 );
-const chave = (x) => [x[0], x[1], x[2] ?? ""].join("|");
+const chave = (x) => [x[0], x[1], x[2] ?? "", x[3] ?? ""].join("|");
 const ordenar = (lista) => [...lista].sort((a, b) => (chave(a) < chave(b) ? -1 : chave(a) > chave(b) ? 1 : 0));
 
 for (const [nome, esp] of Object.entries(esperado)) {
@@ -22,7 +23,7 @@ for (const [nome, esp] of Object.entries(esperado)) {
       return;
     }
     const r = auditar(lerNota(xml, nome), tabelas);
-    assert.deepEqual(ordenar(r.achados.map((a) => [a.codigo, a.gravidade, a.item])), ordenar(esp.achados));
+    assert.deepEqual(ordenar(r.achados.map((a) => [a.codigo, a.gravidade, a.item, a.rejeicao ?? null])), ordenar(esp.achados));
   });
 }
 

@@ -141,6 +141,14 @@ def exportar(con: sqlite3.Connection, repo: Path) -> dict:
             "documentos": dfe,
             "reducao": reducao,
             "nomenclatura": r["CLTR_NOMENCLATURA"],
+            "indicadores": {
+                "gEstornoCred": bool(r["CLTR_IND_GESTORNOCRED"]),
+                "gCredPresOper": bool(r["CLTR_IND_GCREDPRESOPER"]),
+                "gMonoPadrao": bool(r["CLTR_IND_GMONOPADRAO"]),
+                "gMonoReten": bool(r["CLTR_IND_GMONORETEN"]),
+                "gMonoRet": bool(r["CLTR_IND_GMONORET"]),
+                "gMonoDif": bool(r["CLTR_IND_GMONODIF"]),
+            },
             "ncm": nomenclatura["ncm"],
             "nbs": nomenclatura["nbs"],
         }

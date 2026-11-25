@@ -6,8 +6,9 @@
   "achados": [
    [
     "AIC-010",
-    "erro",
-    "1"
+    "atencao",
+    "1",
+    "1115"
    ]
   ]
  },
@@ -16,7 +17,8 @@
    [
     "AIC-010",
     "info",
-    "1"
+    "1",
+    null
    ]
   ]
  },
@@ -25,7 +27,8 @@
    [
     "AIC-015",
     "erro",
-    "1"
+    "1",
+    "1024"
    ]
   ]
  },
@@ -34,7 +37,8 @@
    [
     "AIC-013",
     "erro",
-    "1"
+    "1",
+    "1023"
    ]
   ]
  },
@@ -43,7 +47,8 @@
    [
     "AIC-016",
     "erro",
-    "1"
+    "1",
+    "1025"
    ]
   ]
  },
@@ -51,18 +56,21 @@
   "achados": [
    [
     "AIC-030",
-    "atencao",
-    "1"
+    "erro",
+    "1",
+    "1069"
    ],
    [
     "AIC-031",
     "erro",
-    "1"
+    "1",
+    "1150"
    ],
    [
     "AIC-041",
     "erro",
-    null
+    null,
+    "1076"
    ]
   ]
  },
@@ -70,18 +78,21 @@
   "achados": [
    [
     "AIC-023",
-    "atencao",
-    "1"
+    "erro",
+    "1",
+    "1034"
    ],
    [
     "AIC-023",
-    "atencao",
-    "1"
+    "erro",
+    "1",
+    "1046"
    ],
    [
     "AIC-023",
-    "atencao",
-    "1"
+    "erro",
+    "1",
+    "1063"
    ]
   ]
  },
@@ -90,7 +101,14 @@
    [
     "AIC-020",
     "erro",
-    "1"
+    "1",
+    "1022"
+   ],
+   [
+    "AIC-040",
+    "erro",
+    null,
+    "1119"
    ]
   ]
  },
@@ -102,6 +120,7 @@
    [
     "AIC-004",
     "info",
+    null,
     null
    ]
   ]
@@ -111,12 +130,14 @@
    [
     "AIC-014",
     "erro",
-    "1"
+    "1",
+    null
    ],
    [
     "AIC-016",
     "erro",
-    "1"
+    "1",
+    "1025"
    ]
   ]
  },
@@ -131,7 +152,8 @@
    [
     "AIC-018",
     "erro",
-    "1"
+    "1",
+    null
    ]
   ]
  },
@@ -140,7 +162,8 @@
    [
     "AIC-017",
     "erro",
-    "1"
+    "1",
+    null
    ]
   ]
  },
@@ -149,7 +172,8 @@
    [
     "AIC-019",
     "atencao",
-    "1"
+    "1",
+    null
    ]
   ]
  },
@@ -158,40 +182,46 @@
    [
     "AIC-041",
     "erro",
+    null,
+    "1076"
+   ],
+   [
+    "AIC-050",
+    "erro",
+    "1",
     null
    ],
    [
     "AIC-050",
     "erro",
-    "1"
-   ],
-   [
-    "AIC-050",
-    "erro",
-    "1"
+    "1",
+    null
    ]
   ]
  },
  "19-campo-obrigatorio-ausente.xml": {
   "achados": [
    [
+    "AIC-041",
+    "erro",
+    null,
+    "1085"
+   ],
+   [
     "AIC-051",
     "erro",
-    "1"
+    "1",
+    null
    ]
   ]
  },
  "20-diferimento-valor-errado.xml": {
   "achados": [
    [
-    "AIC-030",
-    "atencao",
-    "1"
-   ],
-   [
     "AIC-034",
-    "atencao",
-    "1"
+    "erro",
+    "1",
+    "1062"
    ]
   ]
  },
@@ -202,8 +232,9 @@
   "achados": [
    [
     "AIC-033",
-    "atencao",
-    "1"
+    "erro",
+    "1",
+    "1064"
    ]
   ]
  },
@@ -212,7 +243,8 @@
    [
     "AIC-035",
     "atencao",
-    "1"
+    "1",
+    null
    ]
   ]
  },
@@ -221,7 +253,14 @@
    [
     "AIC-036",
     "atencao",
-    "1"
+    "1",
+    null
+   ],
+   [
+    "AIC-036",
+    "erro",
+    "1",
+    "1142"
    ]
   ]
  },
@@ -229,26 +268,34 @@
   "achados": [
    [
     "AIC-015",
+    "atencao",
+    "1",
+    null
+   ],
+   [
+    "AIC-032",
     "erro",
-    "1"
+    "1",
+    "1026"
+   ],
+   [
+    "AIC-032",
+    "erro",
+    "1",
+    "1037"
    ]
   ]
  },
- "26-monofasico-valor-errado.xml": {
-  "achados": [
-   [
-    "AIC-038",
-    "atencao",
-    "1"
-   ]
-  ]
+ "26-monofasico.xml": {
+  "achados": []
  },
  "27-total-diferido-errado.xml": {
   "achados": [
    [
     "AIC-041",
     "erro",
-    null
+    null,
+    "1088"
    ]
   ]
  },
@@ -260,6 +307,7 @@
    [
     "AIC-016",
     "erro",
+    null,
     null
    ]
   ]
@@ -271,7 +319,8 @@
   "achados": [
    [
     "AIC-010",
-    "erro",
+    "atencao",
+    null,
     null
    ]
   ]
@@ -281,6 +330,7 @@
    [
     "AIC-041",
     "erro",
+    null,
     null
    ]
   ]
@@ -293,6 +343,7 @@
    [
     "AIC-025",
     "erro",
+    null,
     null
    ]
   ]
@@ -302,6 +353,7 @@
    [
     "AIC-030",
     "atencao",
+    null,
     null
    ]
   ]
@@ -311,6 +363,7 @@
    [
     "AIC-024",
     "erro",
+    null,
     null
    ]
   ]
@@ -320,6 +373,7 @@
    [
     "AIC-002",
     "info",
+    null,
     null
    ]
   ]
@@ -329,6 +383,7 @@
    [
     "AIC-003",
     "erro",
+    null,
     null
    ]
   ]
@@ -338,7 +393,183 @@
    [
     "AIC-040",
     "erro",
-    null
+    null,
+    "1119"
+   ]
+  ]
+ },
+ "40-reducao-nao-permitida.xml": {
+  "achados": [
+   [
+    "AIC-022",
+    "erro",
+    "1",
+    "1007"
+   ],
+   [
+    "AIC-022",
+    "erro",
+    "1",
+    "1028"
+   ],
+   [
+    "AIC-022",
+    "erro",
+    "1",
+    "1032"
+   ]
+  ]
+ },
+ "41-reducao-ausente-cst-200.xml": {
+  "achados": [
+   [
+    "AIC-027",
+    "erro",
+    "1",
+    "1033"
+   ],
+   [
+    "AIC-027",
+    "erro",
+    "1",
+    "1074"
+   ],
+   [
+    "AIC-027",
+    "erro",
+    "1",
+    "1079"
+   ]
+  ]
+ },
+ "42-devolucao-cbs-valor-errado.xml": {
+  "achados": [
+   [
+    "AIC-028",
+    "erro",
+    "1",
+    "1189"
+   ],
+   [
+    "AIC-041",
+    "erro",
+    null,
+    "1089"
+   ]
+  ]
+ },
+ "43-base-calculo-divergente.xml": {
+  "achados": [
+   [
+    "AIC-029",
+    "atencao",
+    "1",
+    "1104"
+   ]
+  ]
+ },
+ "44-base-calculo-correta.xml": {
+  "achados": []
+ },
+ "45-totais-sem-itens-com-ibscbs.xml": {
+  "achados": [
+   [
+    "AIC-010",
+    "atencao",
+    "1",
+    "1115"
+   ],
+   [
+    "AIC-042",
+    "erro",
+    null,
+    "1118"
+   ]
+  ]
+ },
+ "46-nfce-com-compra-governamental.xml": {
+  "achados": [
+   [
+    "AIC-044",
+    "erro",
+    null,
+    "1006"
+   ]
+  ]
+ },
+ "47-nota-debito-cclasstrib-incompativel.xml": {
+  "achados": [
+   [
+    "AIC-046",
+    "erro",
+    "1",
+    "1200"
+   ],
+   [
+    "AIC-047",
+    "erro",
+    "1",
+    "1173"
+   ]
+  ]
+ },
+ "48-estorno-informado-indevidamente.xml": {
+  "achados": [
+   [
+    "AIC-047",
+    "erro",
+    "1",
+    "1172"
+   ]
+  ]
+ },
+ "49-transferencia-fora-nota-debito.xml": {
+  "achados": [
+   [
+    "AIC-040",
+    "erro",
+    null,
+    "1119"
+   ],
+   [
+    "AIC-046",
+    "erro",
+    "1",
+    "1202"
+   ],
+   [
+    "AIC-048",
+    "erro",
+    "1",
+    "1129"
+   ],
+   [
+    "AIC-048",
+    "erro",
+    "1",
+    "1133"
+   ]
+  ]
+ },
+ "50-diferimento-nao-permitido.xml": {
+  "achados": [
+   [
+    "AIC-026",
+    "erro",
+    "1",
+    "1029"
+   ],
+   [
+    "AIC-026",
+    "erro",
+    "1",
+    "1083"
+   ],
+   [
+    "AIC-026",
+    "erro",
+    "1",
+    "1090"
    ]
   ]
  }

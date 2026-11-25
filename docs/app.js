@@ -24,11 +24,12 @@ let carregando = null;
 
 function iniciar() {
   carregando ||= (async () => {
-    const [dados, ncm] = await Promise.all([
+    const [dados, ncm, ntCatalogo] = await Promise.all([
       fetch("tabelas-rtc.json").then((r) => r.json()),
       fetch("ncm.json").then((r) => r.json()),
+      fetch("nt.json").then((r) => r.json()),
     ]);
-    tabelas = criarTabelas(dados, ncm.ncm);
+    tabelas = criarTabelas(dados, ncm.ncm, ntCatalogo);
     const f = tabelas.fonte;
     $("#fonte").textContent =
       `Tabelas oficiais: base ${f.versao_base} de ${f.data_base.split("-").reverse().join("/")} ` +
@@ -128,6 +129,7 @@ function desenhar() {
             el("h3", { text: (a.item ? `Item ${a.item}: ` : "") + a.titulo }),
             el("p", { text: a.explicacao }),
             el("p", { class: "fix", text: `Como corrigir: ${a.como_corrigir}` }),
+            a.rejeicao ? el("p", { class: "nt", text: `Rejeição ${a.rejeicao} · regra ${a.regra_nt} · ${tabelas.nt.versao}, p. ${a.pagina_nt} · ${a.em_producao ? "já em produção" : "ainda não rejeita em produção (implementação futura)"}` }) : null,
             el("code", { text: a.codigo + (a.campo ? ` · ${a.campo}` : "") + ` · ${r.origem}` }),
           ),
         ),
@@ -155,8 +157,8 @@ function baixar(nome, linhas) {
 }
 
 function csvProblemas() {
-  const linhas = [["arquivo", "documento", "chave", "numero", "serie", "emissao", "emitente", "item", "gravidade", "codigo", "problema", "explicacao", "como_corrigir", "campo"]];
-  for (const r of resultados) for (const a of r.achados) linhas.push([r.origem, r.tipo, r.chave, r.numero, r.serie, r.emissao, r.emitente, a.item, a.gravidade, a.codigo, a.titulo, a.explicacao, a.como_corrigir, a.campo]);
+  const linhas = [["arquivo", "documento", "chave", "numero", "serie", "emissao", "emitente", "item", "gravidade", "codigo", "problema", "explicacao", "como_corrigir", "campo", "rejeicao_sefaz", "regra_nt", "pagina_nt", "em_producao"]];
+  for (const r of resultados) for (const a of r.achados) linhas.push([r.origem, r.tipo, r.chave, r.numero, r.serie, r.emissao, r.emitente, a.item, a.gravidade, a.codigo, a.titulo, a.explicacao, a.como_corrigir, a.campo, a.rejeicao, a.regra_nt, a.pagina_nt, a.em_producao === undefined ? "" : a.em_producao ? "sim" : "não"]);
   baixar("auditoria-ibs-cbs.csv", linhas);
 }
 

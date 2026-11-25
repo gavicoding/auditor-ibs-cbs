@@ -13,9 +13,18 @@ from collections import Counter, defaultdict
 from collections.abc import Iterable
 from decimal import Decimal
 
-from .regras import Resultado
+from .nt import VERSAO_NT
+from .regras import Achado, Resultado
 
 ROTULO = {"erro": "ERRO", "atencao": "ATENÇÃO", "info": "INFO", "ok": "OK"}
+
+
+def referencia_nt(a: Achado) -> str:
+    """Ex.: 'Rejeição 1085 · regra W47-10 · NT 2025.002-RTC v1.53, p. 71 · já em produção'."""
+    if not a.rejeicao:
+        return ""
+    vigencia = "já em produção" if a.em_producao else "ainda não rejeita em produção (implementação futura)"
+    return f"Rejeição {a.rejeicao} · regra {a.regra_nt} · {VERSAO_NT}, p. {a.pagina_nt} · {vigencia}"
 
 
 def _brl(v: Decimal) -> str:
@@ -97,6 +106,8 @@ def texto(resultados: list[Resultado], versao_tabelas: str, incluir_info: bool =
             out.write(f"  - {ROTULO[a.gravidade]:<8}{a.codigo}  {onde}{a.titulo}\n")
             out.write(f"      {a.explicacao}\n")
             out.write(f"      Como corrigir: {a.como_corrigir}\n")
+            if a.rejeicao:
+                out.write(f"      {referencia_nt(a)}\n")
     s = resumo(resultados)
     out.write(f"\nResumo: {s['notas']} documento(s) | {s['ok']} ok | {s['com_atencao']} com atenção | {s['com_erro']} com erro\n")
     if s["problemas_mais_comuns"]:
@@ -142,6 +153,10 @@ def csv_(resultados: list[Resultado], incluir_info: bool = False) -> str:
             "explicacao",
             "como_corrigir",
             "campo",
+            "rejeicao_sefaz",
+            "regra_nt",
+            "pagina_nt",
+            "em_producao",
         ]
     )
     for r, a in _linhas(resultados, incluir_info):
@@ -163,6 +178,10 @@ def csv_(resultados: list[Resultado], incluir_info: bool = False) -> str:
                     a.explicacao,
                     a.como_corrigir,
                     a.campo,
+                    a.rejeicao,
+                    a.regra_nt,
+                    a.pagina_nt,
+                    "" if a.em_producao is None else ("sim" if a.em_producao else "não"),
                 )
             ]
         )
@@ -218,7 +237,9 @@ def html_(resultados: list[Resultado], versao_tabelas: str, incluir_info: bool =
         linhas.append(
             f'<tr class="{a.gravidade}"><td>{e(r.tipo or "")} {e(r.numero or "?")}/{e(r.serie or "?")}<br><small>{e(r.chave or r.origem)}</small></td>'
             f"<td>{e(a.item or '-')}</td><td><b>{ROTULO[a.gravidade]}</b><br><small>{a.codigo}</small></td>"
-            f"<td><b>{e(a.titulo)}</b><br>{e(a.explicacao)}<br><i>Como corrigir:</i> {e(a.como_corrigir)}</td></tr>"
+            f"<td><b>{e(a.titulo)}</b><br>{e(a.explicacao)}<br><i>Como corrigir:</i> {e(a.como_corrigir)}"
+            + (f"<br><small>{e(referencia_nt(a))}</small>" if a.rejeicao else "")
+            + "</td></tr>"
         )
     corpo = "\n".join(linhas) or '<tr><td colspan="4">Nenhum problema encontrado.</td></tr>'
 

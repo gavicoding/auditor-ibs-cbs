@@ -359,6 +359,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -396,6 +404,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -433,6 +449,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": true,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -470,6 +494,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": true,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -507,6 +539,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -544,6 +584,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -586,6 +634,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -628,6 +684,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -665,6 +729,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -702,6 +774,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -739,6 +819,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -776,6 +864,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -813,6 +909,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -855,6 +959,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -902,6 +1014,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -949,6 +1069,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "0201",
@@ -1681,6 +1809,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "90181100",
@@ -1903,6 +2039,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "28444390",
@@ -2628,6 +2772,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -2680,6 +2832,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "83024100",
@@ -2770,6 +2930,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "66020000",
@@ -2997,6 +3165,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -3044,6 +3220,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -3086,6 +3270,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "15131900",
@@ -3650,6 +3842,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -3697,6 +3897,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -3744,6 +3952,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "04072",
@@ -3932,6 +4148,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -3969,6 +4193,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4011,6 +4243,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4048,6 +4288,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4090,6 +4338,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4147,6 +4403,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4189,6 +4453,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4226,6 +4498,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4263,6 +4543,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4300,6 +4588,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4337,6 +4633,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4374,6 +4678,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4411,6 +4723,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -4448,6 +4768,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": [
     {
@@ -4534,6 +4862,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": [
     {
@@ -4707,6 +5043,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "28444390",
@@ -5432,6 +5776,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "66020000",
@@ -5659,6 +6011,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -5706,6 +6066,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "15131900",
@@ -6270,6 +6638,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "03061",
@@ -7249,6 +7625,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "33061000",
@@ -7339,6 +7723,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -7376,6 +7768,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -7428,6 +7828,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "0102",
@@ -8167,6 +8575,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "49119100",
@@ -8512,6 +8928,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -8549,6 +8973,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -8586,6 +9018,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -8638,6 +9078,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "21069030",
@@ -8928,6 +9376,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "21069030",
@@ -9218,6 +9674,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9260,6 +9724,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9302,6 +9774,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9339,6 +9819,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9376,6 +9864,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9423,6 +9919,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9460,6 +9964,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9497,6 +10009,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9549,6 +10069,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9596,6 +10124,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": true,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9633,6 +10169,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9670,6 +10214,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9707,6 +10259,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9744,6 +10304,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9781,6 +10349,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9818,6 +10394,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9855,6 +10439,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9892,6 +10484,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9929,6 +10529,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -9976,6 +10584,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10023,6 +10639,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10060,6 +10684,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10102,6 +10734,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10144,6 +10784,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10241,6 +10889,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10278,6 +10934,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10385,6 +11049,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10457,6 +11129,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10509,6 +11189,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10556,6 +11244,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10603,6 +11299,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10665,6 +11369,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10727,6 +11439,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10774,6 +11494,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10805,6 +11533,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10852,6 +11588,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10889,6 +11633,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10936,6 +11688,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -10978,6 +11738,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11015,6 +11783,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": true,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11052,6 +11828,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11094,6 +11878,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11136,6 +11928,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11178,6 +11978,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11215,6 +12023,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11257,6 +12073,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11299,6 +12123,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11341,6 +12173,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11383,6 +12223,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11480,6 +12328,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": true,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11532,6 +12388,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11563,6 +12427,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11605,6 +12477,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11642,6 +12522,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": true,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11699,6 +12587,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11751,6 +12647,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11793,6 +12697,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11824,6 +12736,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11881,6 +12801,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11933,6 +12861,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -11975,6 +12911,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -12082,6 +13026,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -12129,6 +13081,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -12176,6 +13136,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [
     {
      "codigo": "0102",
@@ -12893,6 +13861,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -12930,6 +13906,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -12972,6 +13956,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13014,6 +14006,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13051,6 +14051,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13093,6 +14101,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13135,6 +14151,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13177,6 +14201,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13219,6 +14251,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13261,6 +14301,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13303,6 +14351,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13340,6 +14396,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13382,6 +14446,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13424,6 +14496,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13466,6 +14546,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13513,6 +14601,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13555,6 +14651,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13597,6 +14701,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13639,6 +14751,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13681,6 +14801,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13718,6 +14846,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13765,6 +14901,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13807,6 +14951,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13844,6 +14996,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13881,6 +15041,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13923,6 +15091,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -13965,6 +15141,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14007,6 +15191,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14044,6 +15236,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14086,6 +15286,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": true,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14128,6 +15336,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": true,
+    "gMonoReten": true,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14170,6 +15386,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": true
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14207,6 +15431,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": true,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14244,6 +15476,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": true,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14286,6 +15526,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": true,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14323,6 +15571,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14365,6 +15621,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14407,6 +15671,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14444,6 +15716,14 @@
     }
    ],
    "nomenclatura": "Não possui",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14486,6 +15766,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14528,6 +15816,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14570,6 +15866,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14607,6 +15911,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14644,6 +15956,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14681,6 +16001,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14718,6 +16046,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14755,6 +16091,14 @@
     }
    ],
    "nomenclatura": "Não possui",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14792,6 +16136,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14829,6 +16181,14 @@
     }
    ],
    "nomenclatura": "NBS",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14881,6 +16241,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14943,6 +16311,14 @@
     }
    ],
    "nomenclatura": "NBS ou NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   },
@@ -14985,6 +16361,14 @@
     }
    ],
    "nomenclatura": "NCM",
+   "indicadores": {
+    "gEstornoCred": false,
+    "gCredPresOper": false,
+    "gMonoPadrao": false,
+    "gMonoReten": false,
+    "gMonoRet": false,
+    "gMonoDif": false
+   },
    "ncm": [],
    "nbs": []
   }

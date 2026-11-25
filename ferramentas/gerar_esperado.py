@@ -19,7 +19,9 @@ def main() -> None:
     for p in sorted((RAIZ / "exemplos").glob("*.xml")):
         try:
             r = auditar(ler_bytes(p.read_bytes(), p.name), t)
-            saida[p.name] = {"achados": sorted(([a.codigo, a.gravidade, a.item] for a in r.achados), key=lambda x: (x[0], x[1], x[2] or ""))}
+            saida[p.name] = {
+                "achados": sorted(([a.codigo, a.gravidade, a.item, a.rejeicao] for a in r.achados), key=lambda x: (x[0], x[1], x[2] or "", x[3] or ""))
+            }
         except XMLInvalido:
             saida[p.name] = {"ilegivel": True}
     (RAIZ / "tests" / "esperado.json").write_text(json.dumps(saida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")

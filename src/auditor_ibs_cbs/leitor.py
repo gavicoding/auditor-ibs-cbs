@@ -87,6 +87,8 @@ class Tributo:
     v_dif: Decimal | None = None
     tem_devolucao: bool = False  # gDevTrib
     v_dev: Decimal | None = None
+    p_dev: Decimal | None = None  # gDevTrib/pDevTrib (NT 2025.002 v1.53)
+    tem_alczfm: bool = False  # gCBS/gALCZFMCBS
 
 
 @dataclass
@@ -116,6 +118,8 @@ class Item:
     especiais: dict[str, dict[str, Decimal | str | None]] = field(default_factory=dict)
     faltando: list[str] = field(default_factory=list)  # campos obrigatórios ausentes no grupo
     campos: list[Campo] = field(default_factory=list)
+    cprod_anp: str | None = None  # prod/comb/cProdANP (combustível)
+    composicao: dict[str, Decimal] | None = None  # valores do item que compõem a base (regra UB16-10)
 
 
 @dataclass
@@ -140,6 +144,10 @@ class Nota:
     tipo: str | None = None  # sigla: NF-e, NFC-e, CT-e...
     redutor_compra_gov: Decimal | None = None  # gCompraGov/pRedutor
     por_item: bool = True  # NF-e, NFC-e e NF3-e têm itens; CT-e, BP-e e NFS-e têm um grupo só
+    fin_nfe: str | None = None  # ide/finNFe
+    tp_nf_debito: str | None = None  # ide/tpNFDebito
+    tp_nf_credito: str | None = None  # ide/tpNFCredito
+    tem_compra_gov: bool = False  # ide/gCompraGov
 
 
 # ----------------------------------------------------------------------------- grupos TCIBS (DFe)
@@ -188,7 +196,46 @@ def _tributo(grupo: ET.Element | None, prefixo: str, item: Item, nome_grupo: str
         v_dif=_decimal(dif, "vDif"),
         tem_devolucao=dev is not None,
         v_dev=_decimal(dev, "vDevTrib"),
+        p_dev=_decimal(dev, "pDevTrib"),
+        tem_alczfm=grupo.find("gALCZFMCBS") is not None,
     )
+
+
+def _soma_tags(el: ET.Element | None, tag: str) -> Decimal | None:
+    if el is None:
+        return None
+    valores = [_numero((x.text or "").strip()) for x in el.iter(tag)]
+    valores = [v for v in valores if v is not None]
+    return sum(valores, Decimal(0)) if valores else None
+
+
+def _composicao(det: ET.Element) -> dict[str, Decimal] | None:
+    """Valores do item usados na fórmula da base do IBS/CBS (NT 2025.002, regra UB16-10)."""
+    prod = det.find("prod")
+    imposto = det.find("imposto")
+    if prod is None or _decimal(prod, "vProd") is None:
+        return None
+    zero = Decimal(0)
+    c = {nome: _decimal(prod, nome) or zero for nome in ("vProd", "vFrete", "vSeg", "vOutro", "vDesc")}
+    c["vII"] = _decimal(imposto, "II/vII") or zero
+    c["vIS"] = _decimal(imposto, "IS/vIS") or zero
+    c["vISSQN"] = _decimal(imposto, "ISSQN/vISSQN") or zero
+    icms = imposto.find("ICMS") if imposto is not None else None
+    c["vICMS"] = _soma_tags(icms, "vICMS") or zero
+    c["vFCP"] = _soma_tags(icms, "vFCP") or zero
+    c["vICMSMono"] = _soma_tags(icms, "vICMSMono") or zero
+    c["vICMSUFDest"] = _decimal(imposto, "ICMSUFDest/vICMSUFDest") or zero
+    c["vFCPUFDest"] = _decimal(imposto, "ICMSUFDest/vFCPUFDest") or zero
+    pis = imposto.find("PIS") if imposto is not None else None
+    cofins = imposto.find("COFINS") if imposto is not None else None
+    c["vPIS"] = _soma_tags(pis, "vPIS") or zero
+    c["vCOFINS"] = _soma_tags(cofins, "vCOFINS") or zero
+    # PIS/COFINS ST só são subtraídos quando não compõem o total da nota (exceções 1 e 2 da UB16-10)
+    if imposto is not None and imposto.find("PISST") is not None and _texto(imposto, "PISST/indSomaPISST") != "1":
+        c["vPIS"] += _decimal(imposto, "PISST/vPIS") or zero
+    if imposto is not None and imposto.find("COFINSST") is not None and _texto(imposto, "COFINSST/indSomaCOFINSST") != "1":
+        c["vCOFINS"] += _decimal(imposto, "COFINSST/vCOFINS") or zero
+    return c
 
 
 def _valores(el: ET.Element | None) -> dict[str, Decimal | str | None]:
@@ -364,7 +411,10 @@ def ler_bytes(conteudo: bytes, origem: str) -> Nota:
     por_item = True
     if inf.tag == "infNFe":
         for det in inf.findall("det"):
-            itens.append(_grupo_dfe(det.find("imposto/IBSCBS"), det.get("nItem") or "?", _texto(det, "prod/xProd") or "", _texto(det, "prod/NCM")))
+            item = _grupo_dfe(det.find("imposto/IBSCBS"), det.get("nItem") or "?", _texto(det, "prod/xProd") or "", _texto(det, "prod/NCM"))
+            item.cprod_anp = _texto(det, "prod/comb/cProdANP")
+            item.composicao = _composicao(det)
+            itens.append(item)
         totais = _totais(inf.find("total/IBSCBSTot"))
     elif inf.tag == "infNF3e":
         for det in inf.findall("NFdet/det"):
@@ -390,6 +440,10 @@ def ler_bytes(conteudo: bytes, origem: str) -> Nota:
         totais=totais,
         redutor_compra_gov=_decimal(ide, "gCompraGov/pRedutor"),
         por_item=por_item,
+        fin_nfe=_texto(ide, "finNFe"),
+        tp_nf_debito=_texto(ide, "tpNFDebito"),
+        tp_nf_credito=_texto(ide, "tpNFCredito"),
+        tem_compra_gov=ide is not None and ide.find("gCompraGov") is not None,
     )
 
 

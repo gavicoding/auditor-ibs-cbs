@@ -58,6 +58,7 @@ def grupo_ibscbs(
     extra_gibscbs="",
     extra_grupo="",
     remover=(),
+    dev=None,
 ):
     """Grupo IBSCBS de um item, com os valores calculados como a calculadora oficial faz.
 
@@ -73,14 +74,18 @@ def grupo_ibscbs(
         efet_txt = s.get(f"pAliqEfet{tag}", q4(efet))
         calculado = (vbc * Decimal(efet_txt) / 100).quantize(Decimal("0.01"), rounding=ROUND_HALF_EVEN)
         gred = f"<gRed><pRedAliq>{q4(Decimal(red or 0))}</pRedAliq><pAliqEfet>{efet_txt}</pAliqEfet></gRed>" if (red is not None or redutor is not None) else ""
-        gdif, vdif = "", Decimal(0)
+        gdif, vdif, gdev, vdev = "", Decimal(0), "", Decimal(0)
+        if dev is not None and tag == "CBS":
+            vdev = (vbc * Decimal(efet_txt) / 100 * Decimal(dev) / 100).quantize(Decimal("0.01"), rounding=ROUND_HALF_EVEN)
+            vdev = Decimal(s.get("vDevTrib", q(vdev)))
+            gdev = f"<gDevTrib><pDevTrib>{q4(Decimal(dev))}</pDevTrib><vDevTrib>{q(vdev)}</vDevTrib></gDevTrib>"
         if dif is not None:
             vdif = (vbc * Decimal(efet_txt) / 100 * Decimal(dif) / 100).quantize(Decimal("0.01"), rounding=ROUND_HALF_EVEN)
             vdif = Decimal(s.get(f"vDif{tag}", q(vdif)))
             gdif = f"<gDif><pDif>{q4(Decimal(dif))}</pDif><vDif>{q(vdif)}</vDif></gDif>"
-        v = s.get(f"v{tag}", q(calculado - vdif))
+        v = s.get(f"v{tag}", q(calculado - vdif - vdev))
         p_txt = s.get(f"p{tag}", q4(p))
-        return f"<g{tag}><p{tag}>{p_txt}</p{tag}>{gdif}{gred}<v{tag}>{v}</v{tag}></g{tag}>", Decimal(v), vdif
+        return f"<g{tag}><p{tag}>{p_txt}</p{tag}>{gdif}{gdev}{gred}<v{tag}>{v}</v{tag}></g{tag}>", Decimal(v), vdif
 
     uf_xml, v_uf, d_uf = bloco("IBSUF", p_uf)
     mun_xml, v_mun, d_mun = bloco("IBSMun", p_mun)
@@ -141,19 +146,29 @@ def nota(
     compra_gov=None,
     total_extra="",
     forcar_total=False,
+    fin_nfe=None,
+    tp_debito=None,
+    tp_credito=None,
 ):
-    """itens: lista de (descrição, grupo_ibscbs ou None, NCM)."""
+    """itens: lista de (descrição, grupo_ibscbs ou None, NCM) ou (descrição, grupo, NCM, prod_extra, imposto_extra)."""
     ch = chave(modelo, numero, ano_mes)
     dets = []
-    for i, (produto, grupo, ncm) in enumerate(itens, start=1):
+    for i, it in enumerate(itens, start=1):
+        produto, grupo, ncm = it[:3]
+        prod_extra, imposto_extra = (it[3], it[4]) if len(it) > 3 else ("", "")
         xml = grupo[0] if grupo else ""
-        dets.append(f'<det nItem="{i}"><prod><cProd>{i:04d}</cProd><xProd>{produto}</xProd><NCM>{ncm}</NCM></prod><imposto>{xml}</imposto></det>')
-    soma, tem = _somar([g for _, g, _ in itens])
+        dets.append(
+            f'<det nItem="{i}"><prod><cProd>{i:04d}</cProd><xProd>{produto}</xProd><NCM>{ncm}</NCM>{prod_extra}</prod>'
+            f"<imposto>{imposto_extra}{xml}</imposto></det>"
+        )
+    soma, tem = _somar([it[1] for it in itens])
     total = _total(soma, total_sobrescrever or {}, total_extra) if (tem or forcar_total) else ""
     gov = f"<gCompraGov><tpEnteGov>1</tpEnteGov><pRedutor>{compra_gov}</pRedutor><tpOperGov>1</tpOperGov></gCompraGov>" if compra_gov else ""
     return (
         f'<?xml version="1.0" encoding="UTF-8"?>\n<nfeProc xmlns="{NS_NFE}" versao="4.00"><NFe><infNFe Id="NFe{ch}" versao="4.00">'
-        f"<ide><cUF>35</cUF><mod>{modelo}</mod><serie>1</serie><nNF>{numero}</nNF><dhEmi>{data}</dhEmi>{gov}</ide>"
+        f"<ide><cUF>35</cUF><mod>{modelo}</mod><serie>1</serie><nNF>{numero}</nNF><dhEmi>{data}</dhEmi>"
+        f"{f'<finNFe>{fin_nfe}</finNFe>' if fin_nfe else ''}{f'<tpNFDebito>{tp_debito}</tpNFDebito>' if tp_debito else ''}"
+        f"{f'<tpNFCredito>{tp_credito}</tpNFCredito>' if tp_credito else ''}{gov}</ide>"
         f"<emit><CNPJ>{CNPJ}</CNPJ><xNome>EMPRESA FICTICIA EXEMPLO LTDA</xNome><CRT>{crt}</CRT></emit>"
         f"{''.join(dets)}<total>{total}</total></infNFe></NFe></nfeProc>\n"
     )
@@ -307,7 +322,7 @@ EXEMPLOS = {
         compra_gov="10.0000",
     ),
     "25-tributacao-regular-par-errado.xml": nota(1025, [("CANETA AZUL", grupo_ibscbs("000", "000001", "100.00", extra_gibscbs=TRIB_REGULAR), CANETA)]),
-    "26-monofasico-valor-errado.xml": mono_nota(),
+    "26-monofasico.xml": mono_nota(),
     "27-total-diferido-errado.xml": nota(
         1027,
         [("ENERGIA ELETRICA", grupo_ibscbs("510", "510001", "1000.00", dif="100"), ENERGIA)],
@@ -331,6 +346,45 @@ _caneta = [("CANETA AZUL", grupo_ibscbs("000", "000001", "150.00"), CANETA)]
 EXEMPLOS["37-modelo-nao-suportado.xml"] = nota(1037, _caneta, modelo=59)
 EXEMPLOS["38-sem-data-de-emissao.xml"] = nota(1038, _caneta).replace(f"<dhEmi>{DATA}</dhEmi>", "")
 EXEMPLOS["39-sem-totais.xml"] = nota(1039, _caneta).split("<total>")[0] + "<total></total></infNFe></NFe></nfeProc>\n"
+
+# Regras da NT 2025.002-RTC v1.53
+_PROD_100 = "<vProd>100.00</vProd><vDesc>10.00</vDesc>"
+_ICMS_18 = "<ICMS><ICMS00><orig>0</orig><CST>00</CST><vBC>90.00</vBC><pICMS>20.00</pICMS><vICMS>18.00</vICMS></ICMS00></ICMS>"
+EXEMPLOS["40-reducao-nao-permitida.xml"] = nota(1040, [("CANETA AZUL", grupo_ibscbs("000", "000001", "100.00", red="10"), CANETA)])
+EXEMPLOS["41-reducao-ausente-cst-200.xml"] = nota(1041, [("ARROZ 5KG", grupo_ibscbs("200", "200003", "29.90"), ARROZ)])
+EXEMPLOS["42-devolucao-cbs-valor-errado.xml"] = nota(
+    1042, [("CANETA AZUL", grupo_ibscbs("000", "000001", "100.00", dev="100", sobrescrever={"vDevTrib": "0.50"}), CANETA)]
+)
+EXEMPLOS["43-base-calculo-divergente.xml"] = nota(1043, [("CANETA AZUL", grupo_ibscbs("000", "000001", "100.00"), CANETA, _PROD_100, _ICMS_18)])
+EXEMPLOS["44-base-calculo-correta.xml"] = nota(1044, [("CANETA AZUL", grupo_ibscbs("000", "000001", "72.00"), CANETA, _PROD_100, _ICMS_18)])
+EXEMPLOS["45-totais-sem-itens-com-ibscbs.xml"] = nota(1045, [("CANETA AZUL", None, CANETA)], forcar_total=True)
+EXEMPLOS["46-nfce-com-compra-governamental.xml"] = nota(
+    1046, [("CANETA AZUL", grupo_ibscbs("000", "000001", "100.00", red="0", redutor="10"), CANETA)], modelo=65, compra_gov="10.0000"
+)
+EXEMPLOS["47-nota-debito-cclasstrib-incompativel.xml"] = nota(
+    1047, [("CANETA AZUL", grupo_ibscbs("000", "000001", "100.00"), CANETA)], fin_nfe="6", tp_debito="07"
+)
+EXEMPLOS["48-estorno-informado-indevidamente.xml"] = nota(
+    1048,
+    [
+        (
+            "CANETA AZUL",
+            grupo_ibscbs("000", "000001", "100.00", extra_grupo="<gEstornoCred><vIBSEstCred>0.10</vIBSEstCred><vCBSEstCred>0.90</vCBSEstCred></gEstornoCred>"),
+            CANETA,
+        )
+    ],
+)
+EXEMPLOS["49-transferencia-fora-nota-debito.xml"] = nota(
+    1049,
+    [
+        (
+            "TRANSFERENCIA",
+            ("<IBSCBS><CST>800</CST><cClassTrib>800001</cClassTrib><gTransfCred><vIBS>0.00</vIBS><vCBS>0.00</vCBS></gTransfCred></IBSCBS>", {"tem": False}),
+            "00",
+        )
+    ],
+)
+EXEMPLOS["50-diferimento-nao-permitido.xml"] = nota(1050, [("CANETA AZUL", grupo_ibscbs("000", "000001", "100.00", dif="100"), CANETA)])
 
 
 def main() -> None:

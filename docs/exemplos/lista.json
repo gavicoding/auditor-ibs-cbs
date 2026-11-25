@@ -24,7 +24,7 @@
  "23-credito-presumido-errado.xml",
  "24-compra-governamental-errada.xml",
  "25-tributacao-regular-par-errado.xml",
- "26-monofasico-valor-errado.xml",
+ "26-monofasico.xml",
  "27-total-diferido-errado.xml",
  "28-cte-correto.xml",
  "29-cte-cclasstrib-nao-permitido.xml",
@@ -37,5 +37,16 @@
  "36-dps-sem-nbs-obrigatorio.xml",
  "37-modelo-nao-suportado.xml",
  "38-sem-data-de-emissao.xml",
- "39-sem-totais.xml"
+ "39-sem-totais.xml",
+ "40-reducao-nao-permitida.xml",
+ "41-reducao-ausente-cst-200.xml",
+ "42-devolucao-cbs-valor-errado.xml",
+ "43-base-calculo-divergente.xml",
+ "44-base-calculo-correta.xml",
+ "45-totais-sem-itens-com-ibscbs.xml",
+ "46-nfce-com-compra-governamental.xml",
+ "47-nota-debito-cclasstrib-incompativel.xml",
+ "48-estorno-informado-indevidamente.xml",
+ "49-transferencia-fora-nota-debito.xml",
+ "50-diferimento-nao-permitido.xml"
 ]
