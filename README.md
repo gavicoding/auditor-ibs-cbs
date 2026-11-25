@@ -4,175 +4,182 @@
 
 [![CI](https://github.com/gavicoding/auditor-ibs-cbs/actions/workflows/ci.yml/badge.svg)](https://github.com/gavicoding/auditor-ibs-cbs/actions/workflows/ci.yml)
 [![Usar no navegador](https://img.shields.io/badge/usar%20no%20navegador-gr%C3%A1tis-1a7f5a)](https://gavicoding.github.io/auditor-ibs-cbs/)
+![NT](https://img.shields.io/badge/NT%202025.002--RTC-v1.53-0969da)
 ![Python](https://img.shields.io/badge/python-3.10%20a%203.13-blue)
 ![Dependências](https://img.shields.io/badge/depend%C3%AAncias-0-brightgreen)
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-green)](LICENSE)
 
-Desde 2026 os documentos fiscais precisam trazer o **grupo do IBS e da CBS**, com o **CST** e o **cClassTrib** certos. Errar o par de códigos, usar um código que já saiu da tabela, aplicar a redução da cesta básica num produto que não está na lista da lei ou mandar valores que não batem faz a nota ser rejeitada ou ficar errada perante o fisco.
+Desde 2026 os documentos fiscais precisam trazer o **grupo do IBS e da CBS**, com o **CST** e o **cClassTrib** certos. Errar o par de códigos, aplicar a redução da cesta básica num produto que não está na lista da lei, somar os totais com um centavo de diferença ou mandar valores que não batem faz a nota ser rejeitada pela SEFAZ ou ficar errada perante o fisco.
 
-O **Auditor IBS/CBS** lê os XMLs, um ou milhares de uma vez, e diz **o que está errado, em qual item e como corrigir**, em português simples. A conferência usa as **tabelas oficiais** publicadas pela Receita Federal: CST, cClassTrib, produtos (NCM) e serviços (NBS) que cada código aceita, anexos da LC 214/2025 e alíquotas de referência.
+O **Auditor IBS/CBS** lê os XMLs, um ou milhares de uma vez, e diz **o que está errado, em qual item, como corrigir e qual rejeição da SEFAZ isso causa**, citando a regra e a página da nota técnica oficial.
 
-👉 **[Usar agora no navegador](https://gavicoding.github.io/auditor-ibs-cbs/)**: arraste os XMLs ou um .zip. **Nada sai do seu computador**; tudo é processado no próprio navegador.
+👉 **[Usar agora no navegador](https://gavicoding.github.io/auditor-ibs-cbs/)**: arraste os XMLs ou um .zip. **Nada sai do seu computador.**
 
-**Documentos suportados:** NF-e, NFC-e, CT-e, CT-e OS, BP-e, NF3-e e NFS-e nacional (DPS ou NFS-e autorizada).
+**Documentos:** NF-e, NFC-e, CT-e, CT-e OS, BP-e, NF3-e e NFS-e nacional.
+**Base normativa:** NT 2025.002-RTC v1.53 (out/2026) e tabelas oficiais da calculadora da Receita Federal (base V0073).
 
 ---
 
-## Para quem é
-
-- **Contadores e analistas fiscais** que precisam conferir as notas emitidas pelos clientes antes de o problema virar rejeição ou autuação.
-- **Desenvolvedores de ERP e emissores** que querem um teste automático para o grupo IBS/CBS (dá para rodar no CI).
-- **Empresas** que querem saber se o sistema delas já está gerando os documentos do jeito certo.
-
 ## O que você ganha
 
-- **Encontra o problema antes da SEFAZ:** confere a pasta inteira de uma vez, inclusive dentro de arquivos .zip.
-- **Explicação que dá para entender:** cada problema vem com o motivo, a base legal quando houver (ex.: "Anexo I, item 1 da LC 214/2025") e o que fazer.
-- **Pega o erro mais caro:** produto usando um cClassTrib com redução (cesta básica, saúde, insumos agropecuários…) sem estar na lista da lei.
-- **Resumo do lote:** problemas mais comuns, itens com problema por cClassTrib e por NCM, documentos por emitente e base, IBS e CBS somados por cClassTrib, com planilhas para o contador.
-- **"Qual código meu produto pode usar?":** consulte o NCM e veja quais cClassTrib com benefício aceitam aquele produto.
-- **Tabelas sempre atualizadas:** uma rotina semanal compara com o repositório público da Receita e atualiza quando sai base nova.
-- **Privacidade:** o relatório não inclui dados do destinatário, e a versão web não envia nada para servidor nenhum.
+- **Saber a rejeição antes de enviar:** cada achado de NF-e/NFC-e traz o código (ex.: `Rejeição 1085`), a regra (`W47-10`), a página da NT e se a regra **já vale em produção** ou ainda é "implementação futura" (aí ela aparece como aviso antecipado).
+- **Pegar o erro mais caro:** produto usando um cClassTrib com redução (cesta básica, saúde, insumos agropecuários...) sem estar na lista da lei, com as exceções oficiais, a citação do anexo da LC 214/2025 e a sugestão dos códigos que o produto pode usar.
+- **Explicação que dá para entender:** motivo e correção em português simples.
+- **Resumo do lote** (problemas mais comuns, por cClassTrib, por NCM, por emitente; base, IBS e CBS por cClassTrib) e planilhas para o contador.
+- **"Qual código meu produto pode usar?":** consulte o NCM e veja os cClassTrib com benefício que aceitam o produto.
+- **Sempre em dia:** tabelas atualizadas todo dia e vigias que avisam quando sai norma nova (veja abaixo).
+- **Privacidade:** nada é enviado para servidor nenhum; o relatório não inclui dados do destinatário.
+
+---
+
+## Formas de usar (escolha a sua)
+
+| Forma | Para quem | Como |
+| :--- | :--- | :--- |
+| **Página web** | Contador, analista fiscal, qualquer pessoa | [gavicoding.github.io/auditor-ibs-cbs](https://gavicoding.github.io/auditor-ibs-cbs/) |
+| **Programa para Windows (.exe)** | Quem não quer instalar nada | baixe `auditor-ibs-cbs.exe` na [página de versões](https://github.com/gavicoding/auditor-ibs-cbs/releases) |
+| **Linha de comando e biblioteca Python** | Devs, automações, CI | `pip install git+https://github.com/gavicoding/auditor-ibs-cbs.git` |
+| **API local (HTTP) e Docker** | Qualquer linguagem: Delphi, C#, Java, PHP, Node | `auditor-ibs-cbs servir` ou `docker run -p 127.0.0.1:8080:8080 ...` |
+| **Pacote JavaScript** | ERPs web, Node e TypeScript | `npm install github:gavicoding/auditor-ibs-cbs` |
+| **Pacote SQL** | Dentro do banco do ERP: SQL Server, PostgreSQL, MySQL, SQLite | scripts em [`sql/`](sql/) |
+| **GitHub Action** | Testar o emissor a cada mudança | `uses: gavicoding/auditor-ibs-cbs@v1` |
+
+Todas as formas usam as mesmas tabelas e as mesmas regras. As versões Python e JavaScript são comparadas em milhares de documentos aleatórios a cada mudança, e o pacote SQL roda num PostgreSQL 16, MySQL 8 e SQL Server 2022 de verdade no CI, com resultado conferido contra o Python.
+
+### Linha de comando
+
+```bash
+auditor-ibs-cbs auditar notas/                       # pasta, subpastas e .zip
+auditor-ibs-cbs auditar notas/ -f html -o relatorio.html
+auditor-ibs-cbs auditar notas/ -f csv -o problemas.csv
+auditor-ibs-cbs auditar notas/ -f resumo-csv -o valores-por-cclasstrib.csv
+auditor-ibs-cbs auditar notas/ --falhar-em erro      # código de saída 1 se houver erro (CI)
+auditor-ibs-cbs consultar 200003                     # cClassTrib: o que é e para quais NCMs vale
+auditor-ibs-cbs consultar 10063021                   # NCM: quais cClassTrib com benefício aceitam
+auditor-ibs-cbs atualizar                            # baixa as tabelas mais novas, sem reinstalar
+auditor-ibs-cbs servir --porta 8080                  # API local
+```
+
+Exemplo de saída:
+
+```text
+[ERRO] NF-e 1007 série 1  chave 35261111222333000181550010000010071000010077
+  - ERRO    AIC-041  Total de base de cálculo diferente da soma dos itens
+      O total informa R$ 210,00, mas a soma dos itens dá R$ 200,00. A NT exige igualdade exata, sem tolerância de centavo.
+      Como corrigir: Some os valores já arredondados de cada item; não recalcule o total sobre a base inteira.
+      Rejeição 1076 · regra W35-10 · NT 2025.002-RTC v1.53, p. 71 · já em produção
+```
+
+### API local
+
+```bash
+curl -X POST --data-binary @nota.xml http://127.0.0.1:8080/auditar     # um XML ou um .zip
+curl http://127.0.0.1:8080/consultar/10063021
+```
+
+Escuta só na própria máquina por padrão; os XMLs ficam só na memória do processo.
+
+### Pacote SQL
+
+```sql
+-- 1) rode sql/<seu banco>/01_tabelas.sql e 02_auditoria.sql
+-- 2) carregue os itens das suas notas:
+INSERT INTO ibscbs_auditoria_item (chave, item, modelo, data_emissao, cst, cclasstrib, ncm)
+VALUES ('3526...', '1', 55, '2026-11-20', '200', '200003', '48201000');
+-- 3) veja os problemas:
+SELECT * FROM ibscbs_auditoria_resultado ORDER BY chave, item, codigo;
+```
+
+Confere CST e cClassTrib (existência, vigência, par e documento) e NCM × cClassTrib com as exceções, com os mesmos códigos do auditor.
+
+### GitHub Action
+
+```yaml
+- uses: gavicoding/auditor-ibs-cbs@v1
+  with:
+    caminho: testes/notas-geradas/
+    falhar-em: erro
+```
 
 ---
 
 ## O que é conferido
 
-| Código | Gravidade | O que significa |
+Para NF-e e NFC-e, a coluna **Rejeição** mostra o código da SEFAZ segundo a NT 2025.002-RTC v1.53.
+
+| Código | O que significa | Rejeição |
 | :--- | :--- | :--- |
-| `AIC-010` | erro (regime normal) / info (Simples) | Item ou documento sem o grupo IBS/CBS |
-| `AIC-011` / `AIC-012` | erro | CST inexistente ou fora da vigência na data do documento |
-| `AIC-013` / `AIC-014` | erro | cClassTrib inexistente ou fora da vigência |
-| `AIC-015` | erro | cClassTrib não pertence ao CST informado (também na tributação regular) |
-| `AIC-016` | erro | cClassTrib não pode ser usado naquele tipo de documento |
-| `AIC-017` / `AIC-018` | erro | NCM ausente quando o cClassTrib exige, ou produto (NCM) fora da lista do cClassTrib, respeitando as exceções oficiais |
-| `AIC-019` | atenção | NCM inexistente ou fora da vigência na tabela NCM |
-| `AIC-024` / `AIC-025` | erro | NFS-e: NBS ausente quando exigido, ou serviço (NBS) fora da lista do cClassTrib |
-| `AIC-020` / `AIC-021` | erro / atenção | Grupo exigido pelo CST está faltando, ou veio um grupo que o CST não prevê |
-| `AIC-022` / `AIC-023` | atenção | Redução sem previsão no CST, ou percentual diferente do oficial do cClassTrib |
-| `AIC-026` | atenção | Diferimento informado sem o CST prever (ou o contrário) |
-| `AIC-030` | atenção | Valor do tributo diferente de base × alíquota (considerando diferimento) |
-| `AIC-031` | erro | IBS total diferente de IBS estadual + municipal |
-| `AIC-032` | info | Alíquota diferente da alíquota de referência do ano |
-| `AIC-033` | atenção | Alíquota efetiva diferente de alíquota × (1 − redução) × (1 − redutor de compra governamental) |
-| `AIC-034` | atenção | Valor diferido diferente de base × alíquota × percentual diferido |
-| `AIC-035` | atenção | Crédito presumido diferente de base do crédito × percentual |
-| `AIC-036` | atenção | Tributo da compra governamental que não confere |
-| `AIC-037` | atenção | Tributação regular que não confere |
-| `AIC-038` | atenção | Monofásico: valor diferente de quantidade × alíquota ad rem |
-| `AIC-040` / `AIC-041` | erro | Totais do documento ausentes ou diferentes da soma dos itens (inclusive diferido, devolvido, crédito presumido, monofásico e estorno) |
-| `AIC-050` / `AIC-051` | erro | Campo fora do formato do leiaute, ou campo obrigatório ausente no grupo |
-| `AIC-052` | erro | Com `--xsd`: documento fora do esquema oficial (XSD) |
-| `AIC-001` a `AIC-004` | erro / info | Arquivo ilegível ou recusado por segurança, modelo não suportado, sem data, anterior à reforma |
+| `AIC-010` | Item sem o grupo IBS/CBS (regime normal; exceções de devolução, complementar e combustíveis) | 1115 *(futura em produção)* |
+| `AIC-011` a `AIC-016` | CST e cClassTrib: existência, vigência, par e permissão no tipo de documento | 1020, 1023, 1024, 1025 |
+| `AIC-017` a `AIC-019` | NCM obrigatório, NCM fora da lista do cClassTrib (com exceções oficiais) e NCM inexistente | sem rejeição própria* |
+| `AIC-024` / `AIC-025` | NFS-e: NBS obrigatório ou fora da lista do cClassTrib | |
+| `AIC-020` / `AIC-021` | Grupos exigidos ou vedados pelo CST (gIBSCBS, monofásico, transferência, ZFM, ajuste) | 1021, 1022, 1116, 1131, 1132, 1135, 1151, 1170 |
+| `AIC-022` / `AIC-027` | Grupo de redução vedado pelo CST, ou ausente quando o CST exige ou há compra governamental | 1007, 1028, 1032, 1033, 1074, 1079 |
+| `AIC-023` | Percentual de redução diferente do oficial do cClassTrib | 1034, 1046, 1063 |
+| `AIC-026` | Diferimento vedado ou exigido pelo CST | 1029, 1030, 1044, 1061, 1083, 1090 |
+| `AIC-028` | Devolução de tributo (grupos vedados, percentual ausente, valor que não confere) | 1111, 1112, 1187, 1188, 1189 |
+| `AIC-029` | Base de cálculo diferente da composição da NT (produto, frete, seguro... menos ICMS, PIS, COFINS...) | 1104 *(futura: aviso antecipado)* |
+| `AIC-030` / `AIC-034` | Valor do tributo ≠ base × alíquota − diferido − devolvido; valor diferido que não confere | 1031, 1041, 1045, 1052, 1062, 1069 |
+| `AIC-031` | vIBS ≠ vIBSUF + vIBSMun (menos crédito presumido, quando aplicável) | 1150 |
+| `AIC-032` | Alíquota diferente da fixada em lei para o ano (2026: CBS 0,9%, IBS UF 0,1%, IBS Mun 0%) | 1026, 1036, 1037 |
+| `AIC-033` | Alíquota efetiva ≠ alíquota × (1 − redução) × (1 − redutor de compra governamental), 4 casas | 1035, 1047, 1064 |
+| `AIC-035` / `AIC-036` / `AIC-037` | Crédito presumido, compra governamental (grupos e soma) e tributação regular | 1040, 1051, 1068, 1141, 1142, 1144 |
+| `AIC-040` / `AIC-041` / `AIC-042` | Totais ausentes, indevidos ou diferentes da soma dos itens (**sem tolerância**) | 1076 a 1093, 1118 a 1123, 1176, 1177 |
+| `AIC-044` / `AIC-045` | Limites da NFC-e (compra governamental, crédito presumido) e crédito presumido da ZFM | 1006, 1049, 1138, 1158, 1159 |
+| `AIC-046` | cClassTrib incompatível com a nota de débito ou de crédito | 1200, 1201, 1202 |
+| `AIC-047` / `AIC-048` | Estorno de crédito e transferência de crédito | 1129, 1133, 1172, 1173 |
+| `AIC-050` / `AIC-051` / `AIC-052` | Formato e campos obrigatórios do leiaute; com `--xsd`, validação contra o esquema | |
+| `AIC-001` a `AIC-004` | Arquivo ilegível ou recusado por segurança, modelo não suportado, sem data, anterior à reforma | |
 
-**Como as regras foram feitas:** a vinculação CST × cClassTrib, cClassTrib × documento e NCM/NBS × cClassTrib (por prefixo e com exceções) segue a mesma lógica da calculadora oficial da Receita. Os valores usam as fórmulas publicadas pela calculadora: valor = arred2(base × alíquota publicada ÷ 100), diferimento = arred2(base × alíquota ÷ 100 × pDif ÷ 100), com arredondamento bancário (`HALF_EVEN`) e tolerância de R$ 0,01. Quando a calculadora não publica fórmula (devolução de tributo), o valor não é recalculado, para não gerar alarme falso.
+\* NCM × cClassTrib segue a mesma lógica da calculadora oficial da Receita (prefixo e exceções vigentes).
 
----
-
-## Linha de comando
-
-Requer Python 3.10 ou mais novo. Não há dependências.
-
-```bash
-pip install git+https://github.com/gavicoding/auditor-ibs-cbs.git
-```
-
-```bash
-# Conferir uma pasta (procura XMLs em subpastas e dentro de arquivos .zip)
-auditor-ibs-cbs auditar notas/
-
-# Relatório em HTML (com o resumo do lote) para mandar ao cliente, ou planilhas CSV
-auditor-ibs-cbs auditar notas/ -f html -o relatorio.html
-auditor-ibs-cbs auditar notas/ -f csv -o problemas.csv
-auditor-ibs-cbs auditar notas/ -f resumo-csv -o valores-por-cclasstrib.csv
-
-# Também validar o leiaute oficial (XSD); instale o extra opcional
-pip install "auditor-ibs-cbs[xsd] @ git+https://github.com/gavicoding/auditor-ibs-cbs.git"
-auditor-ibs-cbs auditar notas/ --xsd
-
-# No CI do seu ERP: falha se algum documento de teste tiver erro
-auditor-ibs-cbs auditar testes/notas-geradas/ --falhar-em erro
-
-# Consultas
-auditor-ibs-cbs consultar 200003     # o que é este cClassTrib e para quais NCMs vale
-auditor-ibs-cbs consultar 011        # este CST e seus cClassTrib
-auditor-ibs-cbs consultar 10063021   # este NCM: descrição e quais cClassTrib com benefício aceitam o produto
-auditor-ibs-cbs tabelas              # versão das tabelas oficiais em uso
-```
-
-Exemplo de saída (com os documentos fictícios da pasta [`exemplos/`](exemplos/)):
-
-```text
-[ERRO] NF-e 1015 série 1  chave 35261111222333000181550010000010151000010150
-  arquivo: exemplos/15-ncm-fora-da-lista-cesta-basica.xml
-  - ERRO    AIC-018  item 1: NCM não pode usar este cClassTrib
-      O cClassTrib 200003 (Vendas de produtos destinados à alimentação humana (Anexo I)) só vale para os produtos
-      listados na lei (Anexo I, item 19, Anexo I, item 20, Anexo I, item 2… da LC 214/2025). O NCM 48201000 (Livros
-      de registro e de contabilidade, blocos de notas, de encomendas, de…) não está nessa lista, então o tratamento
-      (como a redução) não se aplica.
-      Como corrigir: Confira o NCM e o cClassTrib do produto; se o produto não está no anexo, use o cClassTrib da tributação comum.
-```
-
-Formatos: `texto` (padrão), `json`, `csv`, `md`, `html` e `resumo-csv`. Use `--info` para ver também as observações.
-
-## Como biblioteca
-
-```python
-from auditor_ibs_cbs import auditar, carregar, ler_arquivo
-
-tabelas = carregar()
-resultado = auditar(ler_arquivo("nota.xml"), tabelas)
-for achado in resultado.achados:
-    print(achado.codigo, achado.gravidade, achado.item, achado.titulo)
-```
+**Tolerâncias, como na NT:** valores do item aceitam R$ 0,01; soma da compra governamental, R$ 0,04; totais, **nenhuma**. Para CT-e, BP-e, NF3-e e NFS-e (que têm notas técnicas próprias) as mesmas conferências de tabela e cálculo são aplicadas, sem citar código de rejeição.
 
 ---
 
-## De onde vêm as tabelas
+## Sempre atualizado
 
-Tudo é extraído do repositório público da **[Calculadora de Tributos da Receita Federal](https://github.com/ReceitaFederal/calculadora-rtc-regime-regular)** (licença MIT):
-- CST e cClassTrib, com vigência e documentos permitidos;
-- NCM e NBS aplicáveis a cada cClassTrib, com as exceções;
-- textos dos anexos da LC 214/2025;
-- percentuais de redução e alíquotas de referência;
-- tabela NCM;
-- esquemas XSD dos documentos.
+| Vigia | Frequência | O que faz |
+| :--- | :--- | :--- |
+| [`atualizar-tabelas`](.github/workflows/atualizar-tabelas.yml) | diário | Refaz a extração das tabelas a partir da calculadora oficial e abre um PR, com os testes rodados, quando os **dados** mudam |
+| [`vigias`](.github/workflows/vigias.yml): publicações | diário | Lê o Portal da NF-e e abre uma issue para cada publicação nova sobre a reforma (NT, informe técnico, tabela) |
+| [`vigias`](.github/workflows/vigias.yml): calculadora | diário | Abre uma issue quando os esquemas XSD da calculadora oficial mudam |
 
-O script [`ferramentas/exportar_tabelas.py`](ferramentas/exportar_tabelas.py) só lê os arquivos SQL de migração daquele repositório. Ele gera [`tabelas-rtc.json`](src/auditor_ibs_cbs/dados/tabelas-rtc.json) e [`ncm.json`](src/auditor_ibs_cbs/dados/ncm.json), com a versão da base e o commit de origem.
+Tabelas mudam sozinhas (com PR e testes). **Regras fiscais novas nunca entram sozinhas:** elas pedem leitura da norma e revisão, e a issue já traz a lista do que fazer. Quem usa a linha de comando pode rodar `auditor-ibs-cbs atualizar` para receber as tabelas novas sem reinstalar; a página web e a API usam sempre a versão publicada.
 
-Toda semana, o workflow [`atualizar-tabelas`](.github/workflows/atualizar-tabelas.yml) refaz a extração e abre um pull request quando a Receita publica uma base nova.
+---
 
-Para o cálculo completo (base de cálculo, alíquotas por município, geração do grupo do XML), use a própria calculadora oficial. Este projeto é um **complemento** a ela: confere documentos já emitidos, em lote, e explica o problema.
+## De onde vêm os dados
+
+- **Tabelas** (CST, cClassTrib, documentos, NCM/NBS aplicáveis com exceções, anexos da LC 214/2025, reduções, alíquotas de referência, tabela NCM) e **esquemas XSD**: repositório público da [Calculadora de Tributos da Receita Federal](https://github.com/ReceitaFederal/calculadora-rtc-regime-regular) (licença MIT), extraídos por [`ferramentas/exportar_tabelas.py`](ferramentas/exportar_tabelas.py).
+- **Regras de validação e códigos de rejeição:** Nota Técnica 2025.002-RTC v1.53, publicada no Portal Nacional da NF-e; catálogo em [`src/auditor_ibs_cbs/nt.py`](src/auditor_ibs_cbs/nt.py), com regra e página de cada código.
+
+Para o cálculo completo, use a calculadora oficial. Este projeto é um **complemento**: confere documentos já emitidos, em lote, e explica o problema.
 
 ## O que ainda não é coberto
 
-Veja o [ROADMAP](ROADMAP.md). Em resumo:
-- Imposto Seletivo (começa em 2027);
-- NFCom, NFAg, NFGas e outros documentos sem esquema na calculadora oficial;
-- recálculo da devolução de tributos (sem fórmula publicada);
-- validação XSD do NF3-e (o pacote oficial não traz o elemento raiz).
+Veja o [ROADMAP](ROADMAP.md): Imposto Seletivo (2027), recálculo do monofásico no leiaute novo da v1.53 (depende das tabelas de combustíveis), indicadores que a base oficial ainda não publica (tributação regular por cClassTrib, tabela de crédito presumido), NTs complementares (2026.005 Simples Nacional, 2026.006, 2026.008), NFCom e outros documentos.
 
 ## Avisos
 
 - **Projeto independente e não oficial.** Não tem relação com a Receita Federal, o Serpro ou as SEFAZ.
-- O resultado ajuda a encontrar problemas, mas **não substitui a validação da SEFAZ nem a orientação do seu contador**. As regras mudam com novas versões da NT 2025.002; confira sempre a versão vigente.
-- Os XMLs da pasta `exemplos/` são **fictícios** (empresas, CNPJ, produtos e valores inventados) e trazem só os campos que o auditor lê.
+- O resultado ajuda a encontrar problemas, mas **não substitui a validação da SEFAZ nem a orientação do seu contador**.
+- Os XMLs de `exemplos/` são **fictícios** e trazem só os campos que o auditor lê.
 
 ## Contribuir
 
-Achou um falso alarme, um caso que não é conferido ou uma explicação confusa? [Abra uma issue](https://github.com/gavicoding/auditor-ibs-cbs/issues/new/choose). Pull requests são bem-vindos; veja o [guia de contribuição](CONTRIBUTING.md). **Nunca anexe XMLs reais**: eles têm dados de clientes. Monte um exemplo fictício com [`ferramentas/gerar_exemplos.py`](ferramentas/gerar_exemplos.py).
+[Abra uma issue](https://github.com/gavicoding/auditor-ibs-cbs/issues/new/choose) para falso alarme, caso não coberto ou explicação confusa. **Nunca anexe XMLs reais.** Veja o [guia de contribuição](CONTRIBUTING.md).
 
 ## Desenvolvimento
 
 ```bash
 pip install -e ".[dev]"
-pytest                                    # versão Python
-node --test tests/web/paridade.test.mjs   # mesma bateria na versão web
-python ferramentas/fuzz_paridade.py /tmp/fuzz 2000 && node tests/web/fuzz.mjs /tmp/fuzz   # Python x web em documentos aleatórios
+pytest                                    # Python, SQL (SQLite), API e atualização
+node --test tests/web/paridade.test.mjs   # versão web
+python ferramentas/fuzz_paridade.py /tmp/fuzz 3000 && node tests/web/fuzz.mjs /tmp/fuzz
+python ferramentas/gerar_sql.py --exemplos
 ```
-
-A versão web ([`docs/auditor.js`](docs/auditor.js)) e a versão Python ([`src/auditor_ibs_cbs/`](src/auditor_ibs_cbs/)) seguem as mesmas regras. As duas são conferidas pelo mesmo gabarito ([`tests/esperado.json`](tests/esperado.json)) e, a cada mudança, por milhares de documentos aleatórios: os resultados têm de ser idênticos.
 
 ## Licença
 
-[MIT](LICENSE). As tabelas e esquemas derivados da calculadora da Receita Federal seguem a licença MIT original; veja [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+[MIT](LICENSE). Tabelas e esquemas derivados da calculadora da Receita Federal seguem a licença MIT original; veja [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

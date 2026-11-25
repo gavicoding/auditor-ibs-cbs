@@ -125,9 +125,16 @@ def _carregar_ncm(caminho: str | None) -> dict[str, list]:
 
 @lru_cache(maxsize=4)
 def carregar(caminho: str | None = None, caminho_ncm: str | None = None) -> Tabelas:
-    """Carrega as tabelas embutidas no pacote, ou arquivos alternativos (mesmo formato)."""
+    """Carrega as tabelas: o arquivo indicado, a cópia baixada por ``atualizar`` (se for mais nova)
+    ou as embutidas no pacote."""
     if caminho:
-        texto = Path(caminho).read_text(encoding="utf-8")
-    else:
-        texto = resources.files("auditor_ibs_cbs").joinpath("dados/tabelas-rtc.json").read_text(encoding="utf-8")
-    return Tabelas(json.loads(texto), caminho_ncm)
+        return Tabelas(json.loads(Path(caminho).read_text(encoding="utf-8")), caminho_ncm)
+    embutidas = json.loads(resources.files("auditor_ibs_cbs").joinpath("dados/tabelas-rtc.json").read_text(encoding="utf-8"))
+    from .atualizacao import copia_do_usuario, numero_versao
+
+    copia = copia_do_usuario()
+    if copia and caminho_ncm is None:
+        baixadas = json.loads(Path(copia[0]).read_text(encoding="utf-8"))
+        if numero_versao(baixadas["fonte"]) > numero_versao(embutidas["fonte"]):
+            return Tabelas(baixadas, copia[1])
+    return Tabelas(embutidas, caminho_ncm)

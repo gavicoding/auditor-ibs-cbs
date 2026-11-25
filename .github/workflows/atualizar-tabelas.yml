@@ -1,10 +1,10 @@
 name: Atualizar tabelas oficiais
 
-# Toda segunda-feira: refaz a extração a partir do repositório público da Receita Federal
+# Todo dia: refaz a extração a partir do repositório público da Receita Federal
 # e abre um pull request se a base de CST/cClassTrib mudou.
 on:
   schedule:
-    - cron: "17 9 * * 1"
+    - cron: "17 9 * * *"
   workflow_dispatch:
 
 permissions:

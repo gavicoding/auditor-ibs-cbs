@@ -48,3 +48,64 @@ jobs:
           python ferramentas/gerar_exemplos.py
           python ferramentas/gerar_esperado.py
           git diff --exit-code -- "exemplos/*.xml" tests/esperado.json
+
+  sql:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: ci_${{ github.run_id }}
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U postgres" --health-interval 5s --health-retries 20
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ci_${{ github.run_id }}
+          MYSQL_DATABASE: auditor
+        ports: ["3306:3306"]
+        options: --health-cmd "mysqladmin ping -h 127.0.0.1 -pci_${{ github.run_id }}" --health-interval 5s --health-retries 30
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_SA_PASSWORD: Ci_${{ github.run_id }}_Aa1!
+        ports: ["1433:1433"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pacote SQL gerado está atualizado
+        run: |
+          python ferramentas/gerar_sql.py --exemplos
+          git diff --exit-code -- sql/
+      - name: Mesmo resultado do Python no PostgreSQL 16, MySQL 8 e SQL Server 2022
+        env:
+          SENHA: ci_${{ github.run_id }}
+          SENHA_MSSQL: Ci_${{ github.run_id }}_Aa1!
+        run: |
+          sort -u sql/exemplos/esperado.csv > esperado.csv
+          CONSULTA="SELECT DISTINCT chave, item, codigo FROM ibscbs_auditoria_resultado ORDER BY chave, item, codigo"
+
+          export PGPASSWORD="$SENHA"
+          for f in sql/postgresql/01_tabelas.sql sql/postgresql/02_auditoria.sql sql/exemplos/postgresql.sql; do
+            psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -q -f "$f"
+          done
+          psql -h 127.0.0.1 -U postgres -At -F, -c "$CONSULTA" | sort -u > pg.csv
+          diff esperado.csv pg.csv && echo "PostgreSQL ok"
+
+          for f in sql/mysql/01_tabelas.sql sql/mysql/02_auditoria.sql sql/exemplos/mysql.sql; do
+            mysql -h 127.0.0.1 -uroot -p"$SENHA" --default-character-set=utf8mb4 auditor < "$f"
+          done
+          mysql -h 127.0.0.1 -uroot -p"$SENHA" auditor -N -B -e "$CONSULTA" | tr '\t' ',' | sort -u > my.csv
+          diff esperado.csv my.csv && echo "MySQL ok"
+
+          for i in $(seq 1 30); do docker exec "${{ job.services.sqlserver.id }}" /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$SENHA_MSSQL" -Q "SELECT 1" >/dev/null 2>&1 && break; sleep 2; done
+          docker exec "${{ job.services.sqlserver.id }}" /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$SENHA_MSSQL" -Q "CREATE DATABASE auditor"
+          for f in sql/sqlserver/01_tabelas.sql sql/sqlserver/02_auditoria.sql sql/exemplos/sqlserver.sql; do
+            docker cp "$f" "${{ job.services.sqlserver.id }}:/tmp/script.sql"
+            docker exec "${{ job.services.sqlserver.id }}" /opt/mssql-tools18/bin/sqlcmd -C -b -S localhost -U sa -P "$SENHA_MSSQL" -d auditor -f 65001 -i /tmp/script.sql >/dev/null
+          done
+          docker exec "${{ job.services.sqlserver.id }}" /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$SENHA_MSSQL" -d auditor -h -1 -W -s, -Q "SET NOCOUNT ON; $CONSULTA" | sed '/^$/d' | sort -u > ms.csv
+          diff esperado.csv ms.csv && echo "SQL Server ok"

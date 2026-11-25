@@ -1,0 +1,140 @@
+[
+ {
+  "data": "01/08/2025",
+  "titulo": "Pacote de schemas - NT 2025.002 v.1.20",
+  "arquivo": "PL_010b_NT2025_002_v1.20.zip",
+  "descricao": "Esquema XML NF-e/NFC-e - Pacote de Liberação nº 010b v1.20 (Novo leiaute da NF-e, NT 2025.002 v.1.20, NT 2024.003 e NT 2025.001) (ZIP)"
+ },
+ {
+  "data": "01/08/2026",
+  "titulo": "Nota Técnica 2025.002 v1.51 - RTC",
+  "arquivo": "NT_2025.002_v1.51_RTC_NF-e_IBS_CBS_IS.pdf",
+  "descricao": "Nota técnica de adequação dos leiautes da NF-e e da NFC-e para inclusão dos campos e das regras de validação referentes à Reforma Tributária do Consumo - RTC."
+ },
+ {
+  "data": "01/10/2026",
+  "titulo": "Nota Técnica 2025.002 v1.52 - RTC",
+  "arquivo": "NT_2025.002_v1.52_RTC_NF-e_IBS_CBS_IS.pdf",
+  "descricao": "Nota técnica de adequação dos leiautes da NF-e e da NFC-e para inclusão dos campos e das regras de validação referentes à Reforma Tributária do Consumo - RTC. O bs.: as datas poderão ser alteradas em razão da publicação ter ocorrido hoje."
+ },
+ {
+  "data": "01/10/2026",
+  "titulo": "Nota Técnica 2026.002 RTC v1.11",
+  "arquivo": "NT_2026.002_v1.11_DANFE_Simpl_Tp2_Emi_Offline_Autoriz_Alerta.pdf",
+  "descricao": "DANFE Simplificado Tipo 2. Obs.: as datas poderão ser alteradas em razão da publicação ter ocorrido hoje."
+ },
+ {
+  "data": "01/10/2026",
+  "titulo": "Nota Técnica 2026.008 v1.00",
+  "arquivo": "NT_2026.008_v1.00_RTC_ValorLiquidoProduto.pdf",
+  "descricao": "Criação de campos para informar o Valor Líquido do Produto. Obs.: as datas poderão ser alteradas em razão da publicação ter ocorrido hoje."
+ },
+ {
+  "data": "01/10/2026",
+  "titulo": "Nota Técnica 2026.010 v1.00",
+  "arquivo": "NFe_NT_2026.010_v1_00_DANFE_RTC.pdf",
+  "descricao": "Alterações no leiaute de impressão do Documento Auxiliar da Nota Fiscal Eletrônica (DANFE), modelo 55, necessárias à representação dos tributos instituídos pela Reforma Tributária do Consumo."
+ },
+ {
+  "data": "01/10/2026",
+  "titulo": "Tabela de Códigos de Crédito Presumido",
+  "arquivo": "IT 2025.002 v.1.70 - cCredPres.xlsx",
+  "descricao": "Tabela atualizada que divulga a codificação do crédito presumido e seus indicadores. Também pode ser visualizada online na área da Conformidade Fácil em: https://dfe-portal.svrs.rs.gov.br/CFF/TabelaCreditoPresumido"
+ },
+ {
+  "data": "03/07/2025",
+  "titulo": "NT 2025.002 v1.10",
+  "arquivo": "NT_2025.002_v1.10_RTC_NF-e_IBS_CBS_IS.pdf",
+  "descricao": "Nota técnica de adequação dos leiautes da NF-e e da NFC-e para inclusão dos campos e das regras de validação referentes à Reforma Tributária do Consumo - RTC."
+ },
+ {
+  "data": "03/07/2025",
+  "titulo": "Pacote de schemas - NT 2025.002 v.1.10",
+  "arquivo": "PL_010b_NT2025_002_v1.00.zip",
+  "descricao": "Esquema XML NF-e/NFC-e - Pacote de Liberação nº 010b (Novo leiaute da NF-e, NT 2025.002 v.1.10, NT 2024.003 e NT 2025.001) (ZIP)"
+ },
+ {
+  "data": "03/12/2025",
+  "titulo": "Nota Técnica 2025.002 v1.34 - RTC",
+  "arquivo": "NT_2025.002_v1.34_RTC_NF-e_IBS_CBS_IS.pdf",
+  "descricao": "Nota técnica de adequação dos leiautes da NF-e e da NFC-e para inclusão dos campos e das regras de validação referentes à Reforma Tributária do Consumo - RTC."
+ },
+ {
+  "data": "06/12/2024",
+  "titulo": "DFe Nota Técnica 2024.002 v1.10 - NFe e NFCe IBS, CBS e Imposto seletivo",
+  "arquivo": "NT_2024.002_-_NF-e_v1.10_-_IBS,_CBS_e_Imposto_Seletivo - Final.pdf",
+  "descricao": "Publicada a 2a. NT para inclusão de informações referentes ao IBS, CBS e IS nas NF-e e NFC-e, a partir de janeiro/2026. [v1.10 - Atualização da NT]"
+ },
+ {
+  "data": "07/10/2025",
+  "titulo": "Pacote de schemas - Eventos da NT 2025.002 v1.30 - RTC",
+  "arquivo": "Eventos_RTC.zip",
+  "descricao": "Esquema XML NF-e/NFC-e - Schema dos eventos da NT 2025.002 v.1.30 - RTC"
+ },
+ {
+  "data": "07/10/2025",
+  "titulo": "Pacote de schemas - NT 2025.002 v1.30",
+  "arquivo": "PL_010b_NT2025_002_v1.30.zip",
+  "descricao": "Esquema XML NF-e/NFC-e - Pacote de Liberação nº 010b v1.30 (Novo leiaute da NF-e, NT 2025.002 v.1.30, NT 2024.003 e NT 2025.001) (ZIP)"
+ },
+ {
+  "data": "23/07/2026",
+  "titulo": "Evento 211110 - NT 2025.002 v1.40",
+  "arquivo": "Schema_Evento_211110_NT2025.002 v1.40.zip",
+  "descricao": "Schema do Evento 211110 (Solicitação de Apropriação de crédito presumido) - NT 2025.002 v1.40"
+ },
+ {
+  "data": "25/08/2026",
+  "titulo": "Informe Técnico 2023.002 v2.00 - Tabela CFOP",
+  "arquivo": "IT_2023.002_v2.00_Tabela_CFOP_indExcIBSCBS.pdf",
+  "descricao": "O objetivo deste Informe Técnico é divulgar a publicação da nova versão da “Tabela CFOP”, disponível no Portal Nacional da NF-e (www.nfe.fazenda.gov.br), na aba “Documentos”, opção “Diversos”. Os prazos dessa atualização de tabelas estão documentados anteriormente, no item que trata de “Controle de Versões”, para a versão mais recente deste Informe Técnico. [v2.00 - Inclusão da coluna indExcIBSCBS, que identifica os CFOP autorizados na emissão de NF-e (modelo 55) por contribuinte exclusivo do IB"
+ },
+ {
+  "data": "25/08/2026",
+  "titulo": "Informe Técnico 2025.004 v1.20 - Tabela de indice de Mistura de Biocombustível",
+  "arquivo": "IT 2025.004 v.1.20 - Tabela de Ind&#237;ce de Mistura de BioCombust&#237;vel.pdf",
+  "descricao": "De forma geral, o Informe Técnico tem a finalidade de: • Divulgar orientações e aperfeiçoamentos para os Serviços de Autorização de Uso dos DF-e, que são usados pelas Empresas; • Divulgar e manter registro da atualização de tabelas de domínio usadas pelo Serviço de Autorização, não significando obrigatoriamente a necessidade de alteração no Sistema de Computação das Empresas; • Divulgar e manter registro de orientações sobre a prestação de informações no leiaute do DF-e, informando sobre o preen"
+ },
+ {
+  "data": "25/08/2026",
+  "titulo": "Nota Técnica 2026.006 RTC - Vinculação Pagamento",
+  "arquivo": "NT_2026.006_v1.00_RTC_VinculacaoPagamento.pdf",
+  "descricao": "A vinculação entre DFe e transação financeira sujeita ao split payment é estritamente necessária para a correta apuração dos débitos do fornecedor e concessão de créditos ao adquirente. No split payment, há duas formas de o contribuinte indicar a vinculação entre o documento fiscal e a transação financeira sujeita ao split payment: Transmitindo a chave do documento fiscal ao prestador de serviço de pagamento, no início da transação financeira; Informando os dados da transação financeira em campo"
+ },
+ {
+  "data": "30/10/2026",
+  "titulo": "IT 2025.002 RT Tabela de Classificação Tributária v1.71",
+  "arquivo": "IT 2025.002 v.1.71 - Tabelas de Classifica&#231;&#227;o do IBS e da CBS.pdf",
+  "descricao": "De forma geral, o Informe Técnico tem a finalidade de: • Divulgar orientações e aperfeiçoamentos para os Serviços de Autorização de Uso dos DF-e, que são usados pelas Empresas; • Divulgar e manter registro da atualização de tabelas de domínio usadas pelo Serviço de Autorização, não significando obrigatoriamente a necessidade de alteração no Sistema de Computação das Empresas; • Divulgar e manter registro de orientações sobre a prestação de informações no leiaute do DF-e, informando sobre o preen"
+ },
+ {
+  "data": "30/10/2026",
+  "titulo": "Nota Técnica 2025.002 v1.53 - RTC",
+  "arquivo": "NT_2025.002_v1.53_RTC_NF-e_IBS_CBS_IS.pdf",
+  "descricao": "Nota técnica de adequação dos leiautes da NF-e e da NFC-e para inclusão dos campos e das regras de validação referentes à Reforma Tributária do Consumo - RTC."
+ },
+ {
+  "data": "30/10/2026",
+  "titulo": "Nota Técnica 2026.005 v1.00 - RTC - Simples Nacional",
+  "arquivo": "NT_2026.005_v1.00_RTC_SimplesNacional.pdf",
+  "descricao": "Atualizações para o Simples Nacional."
+ },
+ {
+  "data": "30/10/2026",
+  "titulo": "Nota Técnica 2026.006 v1.01 - RTC - Vinculação Pagamento",
+  "arquivo": "NT_2026.006_v1.01_RTC_VinculacaoPagamento.pdf",
+  "descricao": "Vinculação entre NF-e e transação financeira sujeita ao split payment."
+ },
+ {
+  "data": "30/10/2026",
+  "titulo": "Nota Técnica 2026.008 v1.01 - Valor Líquido",
+  "arquivo": "NT_2026.008_v1.01_RTC_ValorLiquido.pdf",
+  "descricao": "Criação de campos para informar o Valor Líquido do Produto."
+ },
+ {
+  "data": "30/10/2026",
+  "titulo": "Tabela de Código de Classificação Tributária da RT",
+  "arquivo": "Tabela IT 2025.002 v.1.71 - cClassTrib.xlsx",
+  "descricao": "Tabela atualizada de CST e cClassTrib da Reforma Tributária. Pode ser visualizada também de forma online na área da Conformidade Fácil: https://dfe-portal.svrs.rs.gov.br/CFF/ClassificacaoTributaria"
+ }
+]

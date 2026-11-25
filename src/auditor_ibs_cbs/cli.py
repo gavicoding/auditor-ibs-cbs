@@ -190,6 +190,29 @@ def _tabelas(args: argparse.Namespace) -> int:
     return 0
 
 
+def _atualizar(args: argparse.Namespace) -> int:
+    from .atualizacao import baixar, pasta_usuario
+    from .tabelas import carregar as _carregar
+
+    antes = _carregar().versao
+    try:
+        fonte = baixar()
+    except Exception as erro:  # rede, JSON inválido, fonte inesperada
+        print(f"Não foi possível atualizar: {erro}", file=sys.stderr)
+        return 1
+    _carregar.cache_clear()
+    print(f"Tabelas baixadas para {pasta_usuario()}: base {fonte['versao_base']} de {fonte['data_base']} (em uso antes: {antes}).")
+    print(f"Em uso agora: {_carregar().versao}")
+    return 0
+
+
+def _servir(args: argparse.Namespace) -> int:
+    from .servidor import servir
+
+    servir(args.host, args.porta)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     for fluxo in (sys.stdout, sys.stderr):
         if hasattr(fluxo, "reconfigure"):
@@ -219,6 +242,14 @@ def main(argv: list[str] | None = None) -> int:
 
     t = sub.add_parser("tabelas", help="mostra a versão das tabelas oficiais usadas")
     t.set_defaults(func=_tabelas)
+
+    u = sub.add_parser("atualizar", help="baixa as tabelas oficiais mais recentes (sem reinstalar)")
+    u.set_defaults(func=_atualizar)
+
+    s = sub.add_parser("servir", help="sobe uma API HTTP local para outros sistemas usarem o auditor")
+    s.add_argument("--host", default="127.0.0.1", help="endereço (padrão: só esta máquina)")
+    s.add_argument("--porta", type=int, default=8080)
+    s.set_defaults(func=_servir)
 
     args = p.parse_args(argv)
     return args.func(args)

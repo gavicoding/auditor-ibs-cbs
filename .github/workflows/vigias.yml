@@ -1,0 +1,75 @@
+name: Vigias (normas e calculadora oficial)
+
+# Todo dia: procura publicações novas sobre a reforma tributária no Portal da NF-e e mudanças nos
+# esquemas da calculadora oficial. Quando encontra algo, abre uma issue para revisão humana.
+# Regras fiscais não são aplicadas sozinhas: alguém precisa ler a norma e ajustar o auditor.
+on:
+  schedule:
+    - cron: "41 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  publicacoes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Procurar publicações novas no Portal da NF-e
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python ferramentas/vigiar_publicacoes.py > novas.json
+          python - <<'EOF'
+          import json, subprocess
+          for p in json.load(open("novas.json", encoding="utf-8")):
+              titulo = f"Portal NF-e: {p['titulo']} ({p['data']})"[:240]
+              existe = subprocess.run(["gh", "issue", "list", "--state", "all", "--search", f'"{p["titulo"][:80]}" in:title', "--json", "number"],
+                                      capture_output=True, text=True, check=True).stdout
+              if json.loads(existe):
+                  continue
+              corpo = (
+                  f"Nova publicação no [Portal da NF-e](https://dfe-portal.svrs.rs.gov.br/NFE/Documentos) ligada à reforma tributária.\n\n"
+                  f"- **Título:** {p['titulo']}\n- **Data:** {p['data']}\n- **Arquivo:** {p['arquivo']}\n\n> {p['descricao']}\n\n"
+                  "**Para revisar**\n- [ ] Ler a publicação e listar regras novas ou alteradas\n- [ ] Ajustar `nt.py`, `regras.py` e `docs/auditor.js`\n"
+                  "- [ ] Criar exemplos fictícios e atualizar o gabarito\n- [ ] Atualizar `vigia/publicacoes-conhecidas.json`\n"
+              )
+              subprocess.run(["gh", "issue", "create", "--title", titulo, "--body", corpo], check=True)
+              print("issue aberta:", titulo)
+          EOF
+
+  calculadora:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Comparar os esquemas com a calculadora oficial
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/ReceitaFederal/calculadora-rtc-regime-regular "$RUNNER_TEMP/rtc"
+          git -C "$RUNNER_TEMP/rtc" sparse-checkout set --no-cone /pom.xml '/src/main/resources/xml/'
+          python ferramentas/vigiar_calculadora.py "$RUNNER_TEMP/rtc" > calc.json
+          cat calc.json
+          python - <<'EOF'
+          import json, subprocess
+          d = json.load(open("calc.json"))
+          if not (d["xsd_diferentes"] or d["xsd_novos"]):
+              raise SystemExit(0)
+          titulo = f"Calculadora oficial {d['versao']}: esquemas XSD mudaram"
+          existe = subprocess.run(["gh", "issue", "list", "--state", "open", "--search", f'"{titulo}" in:title', "--json", "number"],
+                                  capture_output=True, text=True, check=True).stdout
+          if json.loads(existe):
+              raise SystemExit(0)
+          corpo = ("Os esquemas da [calculadora oficial](https://github.com/ReceitaFederal/calculadora-rtc-regime-regular) mudaram.\n\n"
+                   f"- Diferentes: {', '.join(d['xsd_diferentes']) or 'nenhum'}\n- Novos: {', '.join(d['xsd_novos']) or 'nenhum'}\n\n"
+                   "- [ ] Copiar os novos esquemas para `src/auditor_ibs_cbs/dados/xsd/`\n- [ ] Conferir se regras de leitura e de formato precisam mudar\n")
+          subprocess.run(["gh", "issue", "create", "--title", titulo, "--body", corpo], check=True)
+          EOF

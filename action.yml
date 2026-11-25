@@ -1,0 +1,31 @@
+name: Auditor IBS/CBS
+description: Confere o IBS/CBS (reforma tributária) de XMLs de NF-e, NFC-e, CT-e, BP-e, NF3-e e NFS-e e falha o job se houver erro.
+author: Gabriel Souza
+branding:
+  icon: check-square
+  color: green
+inputs:
+  caminho:
+    description: Pasta, arquivos .xml ou .zip a conferir
+    required: true
+  falhar-em:
+    description: "Quando falhar: erro, atencao ou nunca"
+    default: erro
+  relatorio:
+    description: Arquivo HTML do relatório (fica disponível para upload como artefato)
+    default: auditoria-ibs-cbs.html
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Instalar o auditor
+      shell: bash
+      run: pip install "${{ github.action_path }}"
+    - name: Gerar relatório
+      shell: bash
+      run: auditor-ibs-cbs auditar ${{ inputs.caminho }} -f html -o "${{ inputs.relatorio }}"
+    - name: Conferir
+      shell: bash
+      run: auditor-ibs-cbs auditar ${{ inputs.caminho }} --falhar-em "${{ inputs.falhar-em }}"

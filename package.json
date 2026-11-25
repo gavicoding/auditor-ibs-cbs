@@ -1,0 +1,21 @@
+{
+  "name": "auditor-ibs-cbs",
+  "version": "1.0.0",
+  "description": "Confere o IBS/CBS (reforma tributária) de NF-e, NFC-e, CT-e, BP-e, NF3-e e NFS-e contra as tabelas oficiais. Sem dependências; roda no navegador e no Node.",
+  "type": "module",
+  "main": "docs/auditor.js",
+  "exports": {
+    ".": "./docs/auditor.js",
+    "./tabelas-rtc.json": "./docs/tabelas-rtc.json",
+    "./ncm.json": "./docs/ncm.json",
+    "./nt.json": "./docs/nt.json"
+  },
+  "files": ["docs/auditor.js", "docs/tabelas-rtc.json", "docs/ncm.json", "docs/nt.json", "LICENSE", "THIRD_PARTY_NOTICES.md"],
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node --test tests/web/paridade.test.mjs" },
+  "keywords": ["reforma tributaria", "ibs", "cbs", "nfe", "nfce", "cte", "nfse", "cclasstrib", "ncm", "nota fiscal"],
+  "author": "Gabriel Souza",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/gavicoding/auditor-ibs-cbs.git" },
+  "homepage": "https://gavicoding.github.io/auditor-ibs-cbs/"
+}

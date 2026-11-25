@@ -1,0 +1,72 @@
+name: Distribuição
+
+# Confere que os outros formatos continuam funcionando e, em cada versão (tag v*), publica o .exe
+# para Windows e o pacote SQL como anexos da release.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Gerar o .exe
+        run: |
+          pip install . "pyinstaller==6.11.1"
+          pyinstaller --onefile --name auditor-ibs-cbs --collect-data auditor_ibs_cbs ferramentas/exe_entrada.py
+      - name: Testar o .exe com os exemplos
+        shell: bash
+        run: |
+          ./dist/auditor-ibs-cbs.exe --version
+          ./dist/auditor-ibs-cbs.exe consultar 200003
+          ./dist/auditor-ibs-cbs.exe auditar exemplos/01-correta.xml --falhar-em erro
+          if ./dist/auditor-ibs-cbs.exe auditar exemplos/07-valores-errados.xml --falhar-em erro; then exit 1; fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: auditor-ibs-cbs-windows
+          path: dist/auditor-ibs-cbs.exe
+      - name: Anexar à release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${GITHUB_REF_NAME}" dist/auditor-ibs-cbs.exe --clobber
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construir a imagem e testar a API
+        run: |
+          docker build -t auditor-ibs-cbs .
+          docker run -d --name api -p 127.0.0.1:8080:8080 auditor-ibs-cbs
+          for i in $(seq 1 20); do curl -fs http://127.0.0.1:8080/saude && break; sleep 1; done
+          curl -fs -X POST --data-binary @exemplos/07-valores-errados.xml http://127.0.0.1:8080/auditar | grep -q '"rejeicao": "1069"'
+          curl -fs http://127.0.0.1:8080/consultar/10063021 | grep -q 200003
+
+  acao-github:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: A própria Action deve passar nos exemplos corretos
+        uses: ./
+        with:
+          caminho: exemplos/01-correta.xml exemplos/21-diferimento-correto.xml exemplos/44-base-calculo-correta.xml
+      - name: E falhar nos errados
+        id: errado
+        continue-on-error: true
+        uses: ./
+        with:
+          caminho: exemplos/07-valores-errados.xml
+      - name: Conferir que falhou
+        if: steps.errado.outcome != 'failure'
+        run: exit 1

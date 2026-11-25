@@ -4,10 +4,19 @@
 
 Primeira versão pública.
 
-- Documentos: NF-e, NFC-e, CT-e, CT-e OS, BP-e, NF3-e e NFS-e nacional (DPS ou autorizada).
-- Regras `AIC-001` a `AIC-052`: códigos CST e cClassTrib (existência, vigência, par, documento), NCM e NBS aplicáveis com exceções oficiais, NCM inexistente, grupos exigidos pelo CST, formato e campos obrigatórios do leiaute, redução, alíquota efetiva, diferimento, crédito presumido, compra governamental, tributação regular, monofásico e totais.
-- Resumo do lote (problemas, cClassTrib, NCM, emitente e valores por cClassTrib) e planilhas CSV.
-- Consulta por CST, cClassTrib e NCM.
-- Validação opcional contra o XSD oficial (`--xsd`).
-- Versão web que roda no navegador, idêntica à versão Python (mesmo gabarito e teste com documentos aleatórios).
-- Tabelas extraídas do repositório público da calculadora da Receita Federal (base V0073, 09/11/2026), com atualização semanal automática.
+- **Regras da NT 2025.002-RTC v1.53:** cada achado de NF-e/NFC-e traz o código de rejeição, a regra, a página da NT e se a regra já vale em produção. Regras marcadas como "implementação futura" aparecem como aviso antecipado.
+- **Documentos:** NF-e, NFC-e, CT-e, CT-e OS, BP-e, NF3-e e NFS-e nacional (DPS ou autorizada).
+- **Conferências:**
+  - CST e cClassTrib, inclusive o vínculo com o tipo de documento;
+  - NCM e NBS aplicáveis, com as exceções oficiais e a citação do anexo da LC 214/2025;
+  - grupos exigidos e vedados;
+  - redução, diferimento, devolução, alíquotas de 2026, alíquota efetiva e valores;
+  - crédito presumido, compra governamental e tributação regular;
+  - notas de débito e de crédito, estorno e transferência de crédito;
+  - composição da base (aviso antecipado);
+  - totais sem tolerância;
+  - formato e campos obrigatórios do leiaute, e XSD opcional.
+- **Resumo do lote**, planilhas CSV e relatório HTML.
+- **Consulta por CST, cClassTrib e NCM.**
+- **Formas de uso:** página web, linha de comando e biblioteca Python, API HTTP local e Docker, pacote JavaScript, pacote SQL (SQL Server, PostgreSQL, MySQL e SQLite), programa para Windows e GitHub Action.
+- **Atualização:** tabelas atualizadas todo dia a partir da calculadora oficial (base V0073, 09/11/2026); comando `atualizar`; vigias diários de publicações no Portal da NF-e e de mudanças nos esquemas da calculadora.

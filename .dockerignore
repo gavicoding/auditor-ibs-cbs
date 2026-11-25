@@ -1,0 +1,8 @@
+.git
+.github
+docs
+exemplos
+tests
+ferramentas
+vigia
+**/__pycache__
