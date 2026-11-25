@@ -35,8 +35,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- src/auditor_ibs_cbs/dados docs/tabelas-rtc.json docs/ncm.json; then
-            echo "Tabelas já estão atualizadas."
+          if ! python ferramentas/tabelas_mudaram.py; then
             exit 0
           fi
           VERSAO=$(python ferramentas/versao_tabelas.py)
