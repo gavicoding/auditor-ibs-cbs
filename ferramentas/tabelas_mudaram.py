@@ -1,6 +1,6 @@
 """Sai com código 0 se os DADOS das tabelas mudaram em relação ao último commit (ignora o hash de origem).
 
-Usado pelo workflow semanal: um commit novo no repositório da Receita sem mudança de dados
+Usado pelo workflow diário: um commit novo no repositório da Receita sem mudança de dados
 não deve gerar pull request.
 """
 

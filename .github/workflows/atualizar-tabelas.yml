@@ -1,7 +1,8 @@
 name: Atualizar tabelas oficiais
 
-# Todo dia: refaz a extração a partir do repositório público da Receita Federal
-# e abre um pull request se a base de CST/cClassTrib mudou.
+# Todo dia: refaz a extração a partir do repositório público da Receita Federal (CST, cClassTrib,
+# alíquotas de referência, NCM) e, se os dados mudaram, abre um pull request com o resumo das
+# diferenças e a versão da base registrada no CHANGELOG. Nada é aceito sem revisão humana.
 on:
   schedule:
     - cron: "17 9 * * *"
@@ -10,6 +11,11 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write # para disparar o CI no ramo do pull request
+
+concurrency:
+  group: atualizar-tabelas
+  cancel-in-progress: false
 
 jobs:
   atualizar:
@@ -23,31 +29,48 @@ jobs:
         run: |
           git clone --depth 1 --filter=blob:none --sparse https://github.com/ReceitaFederal/calculadora-rtc-regime-regular "$RUNNER_TEMP/rtc"
           git -C "$RUNNER_TEMP/rtc" sparse-checkout set flyway
-      - name: Gerar tabelas e sincronizar a página
+      - name: Gerar tabelas e sincronizar a página e o pacote SQL
         run: |
           python ferramentas/exportar_tabelas.py "$RUNNER_TEMP/rtc"
           python ferramentas/sincronizar_web.py
+          python ferramentas/gerar_sql.py --exemplos
+      - name: Ver se os dados mudaram
+        id: mudou
+        run: |
+          if python ferramentas/tabelas_mudaram.py; then echo "sim=1" >> "$GITHUB_OUTPUT"; else echo "sim=0" >> "$GITHUB_OUTPUT"; fi
       - name: Testar com as tabelas novas
+        if: steps.mudou.outputs.sim == '1'
         run: |
           pip install -e ".[dev]"
           if ! pytest -q; then echo "TESTES_FALHARAM=1" >> "$GITHUB_ENV"; fi
-      - name: Abrir pull request se houve mudança
+      - name: Abrir pull request com o resumo das diferenças
+        if: steps.mudou.outputs.sim == '1'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if ! python ferramentas/tabelas_mudaram.py; then
+          VERSAO=$(python ferramentas/versao_tabelas.py)
+          TITULO="Tabelas oficiais: base $VERSAO"
+          if [ -n "$(gh pr list --state open --search "\"$TITULO\" in:title" --json number --jq '.[].number')" ]; then
+            echo "Já existe um pull request aberto para a base $VERSAO."
             exit 0
           fi
-          VERSAO=$(python ferramentas/versao_tabelas.py)
-          RAMO="tabelas/$(date +%Y%m%d)"
+          python ferramentas/resumo_tabelas.py --changelog > resumo.md
+          RAMO="tabelas/$(date +%Y%m%d)-$(echo "$VERSAO" | cut -d' ' -f1)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$RAMO"
-          git add src/auditor_ibs_cbs/dados docs/tabelas-rtc.json docs/ncm.json
+          git add src/auditor_ibs_cbs/dados docs/tabelas-rtc.json docs/ncm.json sql/ CHANGELOG.md
           git commit -m "data: tabelas oficiais base $VERSAO"
           git push origin "$RAMO"
-          CORPO="Extração automática do repositório público da Receita Federal (calculadora-rtc-regime-regular)."
-          if [ "${TESTES_FALHARAM:-0}" = "1" ]; then
-            CORPO="$CORPO Atenção: os testes falharam com a base nova; algum exemplo pode usar um código que mudou. Revise antes de aceitar."
-          fi
-          gh pr create --title "Tabelas oficiais: base $VERSAO" --body "$CORPO"
+          {
+            echo "Extração automática do repositório público da Receita Federal ([calculadora-rtc-regime-regular](https://github.com/ReceitaFederal/calculadora-rtc-regime-regular))."
+            echo
+            if [ "${TESTES_FALHARAM:-0}" = "1" ]; then
+              echo "> **Atenção:** os testes falharam com a base nova; algum exemplo usa um código que mudou. Revise antes de aceitar."
+              echo
+            fi
+            cat resumo.md
+          } > corpo.md
+          gh pr create --title "$TITULO" --body-file corpo.md --head "$RAMO"
+          # Pull requests abertos com o token do workflow não disparam o CI sozinhos.
+          gh workflow run ci.yml --ref "$RAMO"

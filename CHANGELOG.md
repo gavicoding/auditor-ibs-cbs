@@ -1,5 +1,11 @@
 # Mudanças
 
+## Não publicado
+
+- **Monofásico (AIC-038):** confere quantidade × alíquota ad rem nos grupos gMonoPadrao, gMonoReten e gMonoRet, o valor diferido (gMonoDif) e o total do item (vTotIBSMonoItem, vTotCBSMonoItem). Antes, só a presença do grupo e os totais da nota eram conferidos.
+- **Exemplo 26 corrigido:** o XML "monofásico correto" tinha 100 litros × R$ 1,00 = R$ 90,00 de IBS e passava sem aviso. Novo exemplo 51 com o valor errado.
+- **Atualização das tabelas:** o pull request diário agora traz o resumo do que entrou, saiu ou mudou (CST, cClassTrib, alíquotas de referência, NCM), registra a versão da base neste arquivo, regera o pacote SQL (sem isso o CI do próprio PR falhava) e dispara o CI no ramo do PR.
+
 ## 1.0.0
 
 Primeira versão pública.
