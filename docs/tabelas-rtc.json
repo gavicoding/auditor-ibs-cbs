@@ -4,10 +4,10 @@
   "autor": "Receita Federal do Brasil",
   "url": "https://github.com/ReceitaFederal/calculadora-rtc-regime-regular",
   "licenca": "MIT",
-  "commit": "f1eebd7ce3157423b1a6aaca7dc1d6c3395452c4",
-  "versao_base": "V0073",
-  "data_base": "2026-11-09",
-  "descricao_base": "Nova tabela de Classificações Tributárias (IT 2025.002 v.1.71), publicada em 30/10/2026."
+  "commit": "0d4b073da96db8d015e50736d1552bbc7623224e",
+  "versao_base": "V0074",
+  "data_base": "2026-11-26",
+  "descricao_base": "Ajusta as vigências das tabelas CLASSIF_NBS_INDOP_LC e INDICADOR_OPERACAO_IBS_CBS."
  },
  "aviso": "Dados extraídos do repositório público da Receita Federal (licença MIT). Este arquivo não é oficial.",
  "cst": {
