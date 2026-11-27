@@ -934,6 +934,66 @@ def _diferenca(esperado: Decimal, informado: Decimal | None, tolerancia: Decimal
     return informado is not None and abs(esperado - informado) > tolerancia
 
 
+# Monofásico (combustíveis): valor = quantidade x alíquota ad rem, em cada subgrupo
+CONTAS_MONO = (
+    ("gMonoPadrao", "qBCMono", "adRemIBS", "vIBSMono", "IBS monofásico"),
+    ("gMonoPadrao", "qBCMono", "adRemCBS", "vCBSMono", "CBS monofásica"),
+    ("gMonoReten", "qBCMonoReten", "adRemIBSReten", "vIBSMonoReten", "IBS monofásico retido"),
+    ("gMonoReten", "qBCMonoReten", "adRemCBSReten", "vCBSMonoReten", "CBS monofásica retida"),
+    ("gMonoRet", "qBCMonoRet", "adRemIBSRet", "vIBSMonoRet", "IBS monofásico cobrado antes"),
+    ("gMonoRet", "qBCMonoRet", "adRemCBSRet", "vCBSMonoRet", "CBS monofásica cobrada antes"),
+)
+
+
+def _num(valor: Decimal) -> str:
+    return f"{valor.normalize():f}".replace(".", ",")
+
+
+def _conferir_monofasico(item: Item, n, c: _Coletor) -> None:
+    """Contas do grupo gIBSCBSMono (leiaute da NT 2025.002), com tolerância de R$ 0,01."""
+    mono = item.especiais.get("gIBSCBSMono")
+    if not mono:
+        return
+    for grupo, q, ad_rem, campo, nome in CONTAS_MONO:
+        qtd, aliq, valor = _dec(mono.get(f"{grupo}/{q}")), _dec(mono.get(f"{grupo}/{ad_rem}")), _dec(mono.get(f"{grupo}/{campo}"))
+        if qtd is not None and aliq is not None and _diferenca(qtd * aliq, valor):
+            c.add(
+                "AIC-038",
+                "atencao",
+                f"Valor do {nome} não confere",
+                f"Quantidade {_num(qtd)} x alíquota ad rem R$ {_num(aliq)} = R$ {_brl(arredondar(qtd * aliq))}, mas foi informado R$ {_brl(valor)}.",
+                "No monofásico, o valor é a quantidade tributada x a alíquota ad rem (valor fixo por unidade).",
+                item=n,
+                campo=f"gIBSCBSMono/{grupo}/{campo}",
+            )
+    for trib, nome in (("IBS", "IBS"), ("CBS", "CBS")):
+        padrao = _dec(mono.get(f"gMonoPadrao/v{trib}Mono"))
+        p_dif, v_dif = _dec(mono.get(f"gMonoDif/pDif{trib}")), _dec(mono.get(f"gMonoDif/v{trib}MonoDif"))
+        if padrao is not None and p_dif is not None and _diferenca(padrao * p_dif / 100, v_dif):
+            c.add(
+                "AIC-038",
+                "atencao",
+                f"Valor diferido do {nome} monofásico não confere",
+                f"R$ {_brl(padrao)} x {_pct(p_dif)} diferido = R$ {_brl(arredondar(padrao * p_dif / 100))}, mas foi informado R$ {_brl(v_dif)}.",
+                "O valor diferido é o valor monofásico padrão x o percentual de diferimento.",
+                item=n,
+                campo=f"gIBSCBSMono/gMonoDif/v{trib}MonoDif",
+            )
+        total = _dec(mono.get(f"vTot{trib}MonoItem"))
+        partes = [padrao, _dec(mono.get(f"gMonoReten/v{trib}MonoReten")), v_dif]
+        esperado = (partes[0] or ZERO) + (partes[1] or ZERO) - (partes[2] or ZERO)
+        if any(p is not None for p in partes) and _diferenca(esperado, total):
+            c.add(
+                "AIC-038",
+                "atencao",
+                f"Total do {nome} monofásico do item não confere",
+                f"Padrão + retido - diferido dá R$ {_brl(esperado)}, mas o vTot{trib}MonoItem informa R$ {_brl(total)}.",
+                f"O vTot{trib}MonoItem é v{trib}Mono + v{trib}MonoReten - v{trib}MonoDif.",
+                item=n,
+                campo=f"gIBSCBSMono/vTot{trib}MonoItem",
+            )
+
+
 def _auditar_especiais(item: Item, nota: Nota, t: Tabelas, n, c: _Coletor) -> None:
     esp = item.especiais
     nfe = nota.modelo in (55, 65)
@@ -966,6 +1026,7 @@ def _auditar_especiais(item: Item, nota: Nota, t: Tabelas, n, c: _Coletor) -> No
                     item=n,
                     campo=f"gCredPresOper/{g}",
                 )
+    _conferir_monofasico(item, n, c)
     if "gCredPresIBSZFM" in item.grupos and nota.modelo == 65:
         c.add(
             "AIC-045",

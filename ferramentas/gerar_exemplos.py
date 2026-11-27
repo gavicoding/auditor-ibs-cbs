@@ -253,18 +253,25 @@ TRIB_REGULAR = (
     "<vTribRegIBSUF>0.10</vTribRegIBSUF><pAliqEfetRegIBSMun>0.0000</pAliqEfetRegIBSMun><vTribRegIBSMun>0.00</vTribRegIBSMun>"
     "<pAliqEfetRegCBS>0.9000</pAliqEfetRegCBS><vTribRegCBS>0.90</vTribRegCBS></gTribRegular>"
 )
-MONO = (
-    "<IBSCBS><CST>620</CST><cClassTrib>620001</cClassTrib><gIBSCBSMono><gMonoPadrao><qBCMono>100.0000</qBCMono>"
-    "<adRemIBS>1.0000</adRemIBS><adRemCBS>0.5000</adRemCBS><vIBSMono>90.00</vIBSMono><vCBSMono>50.00</vCBSMono></gMonoPadrao>"
-    "<vTotIBSMonoItem>90.00</vTotIBSMonoItem><vTotCBSMonoItem>50.00</vTotCBSMonoItem></gIBSCBSMono></IBSCBS>"
-)
 
 
-def mono_nota():
-    corpo = nota(1026, [("GASOLINA FICTICIA", None, GASOLINA)])
-    corpo = corpo.replace("<imposto></imposto>", f"<imposto>{MONO}</imposto>")
+def mono_grupo(v_ibs: str = "100.00", v_cbs: str = "50.00", tot_ibs: str | None = None) -> str:
+    """Grupo monofásico de 100 litros com ad rem de R$ 1,00 (IBS) e R$ 0,50 (CBS)."""
+    return (
+        "<IBSCBS><CST>620</CST><cClassTrib>620001</cClassTrib><gIBSCBSMono><gMonoPadrao><qBCMono>100.0000</qBCMono>"
+        f"<adRemIBS>1.0000</adRemIBS><adRemCBS>0.5000</adRemCBS><vIBSMono>{v_ibs}</vIBSMono><vCBSMono>{v_cbs}</vCBSMono></gMonoPadrao>"
+        f"<vTotIBSMonoItem>{tot_ibs or v_ibs}</vTotIBSMonoItem><vTotCBSMonoItem>{v_cbs}</vTotCBSMonoItem></gIBSCBSMono></IBSCBS>"
+    )
+
+
+MONO = mono_grupo()
+
+
+def mono_nota(numero: int = 1026, v_ibs: str = "100.00", tot_ibs: str | None = None):
+    corpo = nota(numero, [("GASOLINA FICTICIA", None, GASOLINA)])
+    corpo = corpo.replace("<imposto></imposto>", f"<imposto>{mono_grupo(v_ibs, tot_ibs=tot_ibs)}</imposto>")
     tot = (
-        "<IBSCBSTot><vBCIBSCBS>0.00</vBCIBSCBS><gMono><vIBSMono>90.00</vIBSMono><vCBSMono>50.00</vCBSMono>"
+        f"<IBSCBSTot><vBCIBSCBS>0.00</vBCIBSCBS><gMono><vIBSMono>{v_ibs}</vIBSMono><vCBSMono>50.00</vCBSMono>"
         "<vIBSMonoReten>0.00</vIBSMonoReten><vCBSMonoReten>0.00</vCBSMonoReten><vIBSMonoRet>0.00</vIBSMonoRet><vCBSMonoRet>0.00</vCBSMonoRet></gMono></IBSCBSTot>"
     )
     return corpo.replace("<total></total>", f"<total>{tot}</total>")
@@ -385,6 +392,8 @@ EXEMPLOS["49-transferencia-fora-nota-debito.xml"] = nota(
     ],
 )
 EXEMPLOS["50-diferimento-nao-permitido.xml"] = nota(1050, [("CANETA AZUL", grupo_ibscbs("000", "000001", "100.00", dif="100"), CANETA)])
+# 100 litros x R$ 1,00 de IBS ad rem = R$ 100,00, mas a nota informa R$ 90,00 (e o total do item, R$ 95,00)
+EXEMPLOS["51-monofasico-valor-errado.xml"] = mono_nota(1051, v_ibs="90.00", tot_ibs="95.00")
 
 
 def main() -> None:

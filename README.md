@@ -9,7 +9,7 @@
 ![Dependências](https://img.shields.io/badge/depend%C3%AAncias-0-brightgreen)
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-green)](LICENSE)
 
-Desde 2026 os documentos fiscais precisam trazer o **grupo do IBS e da CBS**, com o **CST** e o **cClassTrib** certos. Errar o par de códigos, aplicar a redução da cesta básica num produto que não está na lista da lei, somar os totais com um centavo de diferença ou mandar valores que não batem faz a nota ser rejeitada pela SEFAZ ou ficar errada perante o fisco.
+Desde 2026 a nota fiscal eletrônica (NF-e, NFC-e) e os demais documentos fiscais precisam trazer o **grupo do IBS e da CBS**, com o **CST** e o **cClassTrib** certos. Errar o par de códigos, aplicar a redução da cesta básica num produto que não está na lista da lei, somar os totais com um centavo de diferença ou mandar valores que não batem faz a nota ser rejeitada pela SEFAZ ou ficar errada perante o fisco.
 
 O **Auditor IBS/CBS** lê os XMLs, um ou milhares de uma vez, e diz **o que está errado, em qual item, como corrigir e qual rejeição da SEFAZ isso causa**, citando a regra e a página da nota técnica oficial.
 
@@ -124,6 +124,7 @@ Para NF-e e NFC-e, a coluna **Rejeição** mostra o código da SEFAZ segundo a N
 | `AIC-032` | Alíquota diferente da fixada em lei para o ano (2026: CBS 0,9%, IBS UF 0,1%, IBS Mun 0%) | 1026, 1036, 1037 |
 | `AIC-033` | Alíquota efetiva ≠ alíquota × (1 − redução) × (1 − redutor de compra governamental), 4 casas | 1035, 1047, 1064 |
 | `AIC-035` / `AIC-036` / `AIC-037` | Crédito presumido, compra governamental (grupos e soma) e tributação regular | 1040, 1051, 1068, 1141, 1142, 1144 |
+| `AIC-038` | Monofásico (combustíveis): valor ≠ quantidade × alíquota ad rem (padrão, retido, cobrado antes), diferido e total do item | sem rejeição própria |
 | `AIC-040` / `AIC-041` / `AIC-042` | Totais ausentes, indevidos ou diferentes da soma dos itens (**sem tolerância**) | 1076 a 1093, 1118 a 1123, 1176, 1177 |
 | `AIC-044` / `AIC-045` | Limites da NFC-e (compra governamental, crédito presumido) e crédito presumido da ZFM | 1006, 1049, 1138, 1158, 1159 |
 | `AIC-046` | cClassTrib incompatível com a nota de débito ou de crédito | 1200, 1201, 1202 |
@@ -141,7 +142,7 @@ Para NF-e e NFC-e, a coluna **Rejeição** mostra o código da SEFAZ segundo a N
 
 | Vigia | Frequência | O que faz |
 | :--- | :--- | :--- |
-| [`atualizar-tabelas`](.github/workflows/atualizar-tabelas.yml) | diário | Refaz a extração das tabelas a partir da calculadora oficial e abre um PR, com os testes rodados, quando os **dados** mudam |
+| [`atualizar-tabelas`](.github/workflows/atualizar-tabelas.yml) | diário | Refaz a extração das tabelas (CST, cClassTrib, alíquotas de referência, NCM) a partir da calculadora oficial e, quando os **dados** mudam, abre um PR com o resumo do que entrou, saiu ou mudou, a versão da base registrada no [CHANGELOG](CHANGELOG.md) e o CI rodado |
 | [`vigias`](.github/workflows/vigias.yml): publicações | diário | Lê o Portal da NF-e e abre uma issue para cada publicação nova sobre a reforma (NT, informe técnico, tabela) |
 | [`vigias`](.github/workflows/vigias.yml): calculadora | diário | Abre uma issue quando os esquemas XSD da calculadora oficial mudam |
 
@@ -158,7 +159,7 @@ Para o cálculo completo, use a calculadora oficial. Este projeto é um **comple
 
 ## O que ainda não é coberto
 
-Veja o [ROADMAP](ROADMAP.md): Imposto Seletivo (2027), recálculo do monofásico no leiaute novo da v1.53 (depende das tabelas de combustíveis), indicadores que a base oficial ainda não publica (tributação regular por cClassTrib, tabela de crédito presumido), NTs complementares (2026.005 Simples Nacional, 2026.006, 2026.008), NFCom e outros documentos.
+Veja o [ROADMAP](ROADMAP.md): Imposto Seletivo (2027), conferência da alíquota ad rem do monofásico contra a tabela oficial de combustíveis (a conta quantidade × alíquota já é conferida), indicadores que a base oficial ainda não publica (tributação regular por cClassTrib, tabela de crédito presumido), NTs complementares (2026.005 Simples Nacional, 2026.006, 2026.008), NFCom e outros documentos.
 
 ## Avisos
 

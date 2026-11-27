@@ -48,5 +48,6 @@
  "47-nota-debito-cclasstrib-incompativel.xml",
  "48-estorno-informado-indevidamente.xml",
  "49-transferencia-fora-nota-debito.xml",
- "50-diferimento-nao-permitido.xml"
+ "50-diferimento-nao-permitido.xml",
+ "51-monofasico-valor-errado.xml"
 ]

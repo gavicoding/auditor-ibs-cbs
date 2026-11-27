@@ -1,6 +1,6 @@
 [🇧🇷 Português](README.md) | **🇺🇸 English**
 
-# IBS/CBS Auditor: check Brazilian e-invoices for the 2026 tax reform
+# IBS/CBS Auditor: NF-e validator for the Brazil tax reform
 
 [![CI](https://github.com/gavicoding/auditor-ibs-cbs/actions/workflows/ci.yml/badge.svg)](https://github.com/gavicoding/auditor-ibs-cbs/actions/workflows/ci.yml)
 [![Use in the browser](https://img.shields.io/badge/use%20in%20the%20browser-free-1a7f5a)](https://gavicoding.github.io/auditor-ibs-cbs/)
@@ -9,7 +9,7 @@
 
 ## In plain words
 
-Brazil's consumption tax reform added two new taxes, **IBS** and **CBS**. Since 2026, electronic tax documents must carry an IBS/CBS group with the right **CST** and **cClassTrib** codes. Several mistakes get a document rejected by the tax authority (SEFAZ) or leave it wrong:
+Brazil's consumption tax reform introduced a dual VAT made of two new taxes, **IBS** and **CBS**. Since 2026, e-invoices (NF-e, NFC-e) and the other electronic tax documents must carry an IBS/CBS group with the right **CST** and **cClassTrib** codes. Several mistakes get a document rejected by the tax authority (SEFAZ) or leave it wrong:
 - a wrong code pair;
 - a reduced rate (such as the basic food basket) applied to a product that is not on the law's list;
 - totals one cent off;

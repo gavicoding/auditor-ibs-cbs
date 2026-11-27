@@ -865,6 +865,44 @@ function conferirValor(item, tr, sigla, nome, nota, t, n, c) {
 
 const diferenca = (esperado, informado, tolerancia = TOLERANCIA) => informado !== null && informado !== undefined && abs(esperado - informado) > tolerancia;
 
+// Monofásico (combustíveis): valor = quantidade x alíquota ad rem, em cada subgrupo
+const CONTAS_MONO = [
+  ["gMonoPadrao", "qBCMono", "adRemIBS", "vIBSMono", "IBS monofásico"],
+  ["gMonoPadrao", "qBCMono", "adRemCBS", "vCBSMono", "CBS monofásica"],
+  ["gMonoReten", "qBCMonoReten", "adRemIBSReten", "vIBSMonoReten", "IBS monofásico retido"],
+  ["gMonoReten", "qBCMonoReten", "adRemCBSReten", "vCBSMonoReten", "CBS monofásica retida"],
+  ["gMonoRet", "qBCMonoRet", "adRemIBSRet", "vIBSMonoRet", "IBS monofásico cobrado antes"],
+  ["gMonoRet", "qBCMonoRet", "adRemCBSRet", "vCBSMonoRet", "CBS monofásica cobrada antes"],
+];
+const num = (v) => pct(v).slice(0, -1);
+
+function conferirMonofasico(item, n, c) {
+  const mono = item.especiais.gIBSCBSMono;
+  if (!mono) return;
+  for (const [grupo, q, adRem, campo, nome] of CONTAS_MONO) {
+    const qtd = mono[`${grupo}/${q}`] ?? null;
+    const aliq = mono[`${grupo}/${adRem}`] ?? null;
+    const valor = mono[`${grupo}/${campo}`] ?? null;
+    if (qtd !== null && aliq !== null && diferenca(mul(qtd, aliq), valor)) {
+      c.add("AIC-038", "atencao", `Valor do ${nome} não confere`, `Quantidade ${num(qtd)} x alíquota ad rem R$ ${num(aliq)} = R$ ${brl(arredondar(mul(qtd, aliq)))}, mas foi informado R$ ${brl(valor)}.`, "No monofásico, o valor é a quantidade tributada x a alíquota ad rem (valor fixo por unidade).", n, `gIBSCBSMono/${grupo}/${campo}`);
+    }
+  }
+  for (const trib of ["IBS", "CBS"]) {
+    const padrao = mono[`gMonoPadrao/v${trib}Mono`] ?? null;
+    const pDif = mono[`gMonoDif/pDif${trib}`] ?? null;
+    const vDif = mono[`gMonoDif/v${trib}MonoDif`] ?? null;
+    if (padrao !== null && pDif !== null && diferenca(div100(mul(padrao, pDif)), vDif)) {
+      c.add("AIC-038", "atencao", `Valor diferido do ${trib} monofásico não confere`, `R$ ${brl(padrao)} x ${pct(pDif)} diferido = R$ ${brl(arredondar(div100(mul(padrao, pDif))))}, mas foi informado R$ ${brl(vDif)}.`, "O valor diferido é o valor monofásico padrão x o percentual de diferimento.", n, `gIBSCBSMono/gMonoDif/v${trib}MonoDif`);
+    }
+    const total = mono[`vTot${trib}MonoItem`] ?? null;
+    const reten = mono[`gMonoReten/v${trib}MonoReten`] ?? null;
+    const esperado = (padrao ?? ZERO) + (reten ?? ZERO) - (vDif ?? ZERO);
+    if ((padrao !== null || reten !== null || vDif !== null) && diferenca(esperado, total)) {
+      c.add("AIC-038", "atencao", `Total do ${trib} monofásico do item não confere`, `Padrão + retido - diferido dá R$ ${brl(esperado)}, mas o vTot${trib}MonoItem informa R$ ${brl(total)}.`, `O vTot${trib}MonoItem é v${trib}Mono + v${trib}MonoReten - v${trib}MonoDif.`, n, `gIBSCBSMono/vTot${trib}MonoItem`);
+    }
+  }
+}
+
 function auditarEspeciais(item, nota, t, n, c) {
   const esp = item.especiais;
   const nfe = nota.modelo === 55 || nota.modelo === 65;
@@ -880,6 +918,7 @@ function auditarEspeciais(item, nota, t, n, c) {
       }
     }
   }
+  conferirMonofasico(item, n, c);
   if (item.grupos.has("gCredPresIBSZFM") && nota.modelo === 65) {
     c.add("AIC-045", "erro", "Crédito presumido da ZFM não permitido na NFC-e", "A NFC-e não pode ter o grupo gCredPresIBSZFM.", "Retire o grupo gCredPresIBSZFM.", n, "IBSCBS/gCredPresIBSZFM", "1138");
   }

@@ -51,6 +51,7 @@ def test_gabarito_cobre_todos_os_exemplos():
         "01-correta.xml",
         "10-reducao-correta-cesta-basica.xml",
         "21-diferimento-correto.xml",
+        "26-monofasico.xml",
         "28-cte-correto.xml",
         "30-cte-os-correto.xml",
         "33-nfse-correta.xml",
@@ -58,6 +59,24 @@ def test_gabarito_cobre_todos_os_exemplos():
 )
 def test_documentos_corretos_nao_tem_achados(nome):
     assert codigos(nome) == []
+
+
+def test_monofasico_confere_quantidade_vezes_ad_rem_e_total_do_item():
+    r = auditar(ler("51-monofasico-valor-errado.xml"), T)
+    mono = [a for a in r.achados if a.codigo == "AIC-038"]
+    assert sorted(a.campo for a in mono) == ["gIBSCBSMono/gMonoPadrao/vIBSMono", "gIBSCBSMono/vTotIBSMonoItem"]
+    assert "R$ 100,00" in mono[0].explicacao or "R$ 100,00" in mono[1].explicacao
+    assert all(a.gravidade == "atencao" for a in mono)
+
+
+def test_monofasico_com_diferimento():
+    xml = (EXEMPLOS / "26-monofasico.xml").read_text(encoding="utf-8")
+    dif_certo = "<gMonoDif><pDifIBS>40.0000</pDifIBS><vIBSMonoDif>40.00</vIBSMonoDif><pDifCBS>0.0000</pDifCBS><vCBSMonoDif>0.00</vCBSMonoDif></gMonoDif>"
+    certo = xml.replace("</gMonoPadrao>", "</gMonoPadrao>" + dif_certo).replace("<vTotIBSMonoItem>100.00", "<vTotIBSMonoItem>60.00")
+    assert [a for a in auditar(ler_bytes(certo.encode(), "x.xml"), T).achados if a.codigo == "AIC-038"] == []
+    errado = certo.replace("<vIBSMonoDif>40.00", "<vIBSMonoDif>30.00")
+    campos = sorted(a.campo for a in auditar(ler_bytes(errado.encode(), "x.xml"), T).achados if a.codigo == "AIC-038")
+    assert campos == ["gIBSCBSMono/gMonoDif/vIBSMonoDif", "gIBSCBSMono/vTotIBSMonoItem"]
 
 
 def test_tipos_de_documento_reconhecidos():

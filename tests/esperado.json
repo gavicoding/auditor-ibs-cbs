@@ -572,5 +572,21 @@
     "1090"
    ]
   ]
+ },
+ "51-monofasico-valor-errado.xml": {
+  "achados": [
+   [
+    "AIC-038",
+    "atencao",
+    "1",
+    null
+   ],
+   [
+    "AIC-038",
+    "atencao",
+    "1",
+    null
+   ]
+  ]
  }
 }

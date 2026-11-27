@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch: # usado pelo workflow de tabelas, cujo pull request não dispara o CI sozinho
 
 permissions:
   contents: read

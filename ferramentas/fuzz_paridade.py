@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from gerar_exemplos import COMPRA_GOV, CRED_PRES, MONO, TRIB_REGULAR, cte, grupo_ibscbs, nf3e, nfse, nota  # noqa: E402
+from gerar_exemplos import COMPRA_GOV, CRED_PRES, MONO, TRIB_REGULAR, cte, grupo_ibscbs, mono_grupo, nf3e, nfse, nota  # noqa: E402
 
 from auditor_ibs_cbs import auditar, carregar, ler_bytes  # noqa: E402
 
@@ -111,7 +111,8 @@ def documento(rnd: random.Random, i: int) -> str:
         forcar_total=rnd.random() < 0.05,
     )
     if rnd.random() < 0.03:
-        xml = xml.replace("<imposto></imposto>", f"<imposto>{MONO}</imposto>", 1)
+        mono = rnd.choice([MONO, mono_grupo("90.00"), mono_grupo(v_cbs="49.99", tot_ibs="1.00")])
+        xml = xml.replace("<imposto></imposto>", f"<imposto>{mono}</imposto>", 1)
     sorteio = rnd.random()
     if sorteio < 0.01:
         xml = xml.replace("<mod>55</mod>", "<mod>59</mod>")
